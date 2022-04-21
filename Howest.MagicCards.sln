@@ -13,11 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web API", "Web API", "{6D36
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Application", "Web Application", "{AF5F59A0-76E6-4C33-9330-08AFFFDCACEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Howest.MagicCards.GraphQL", "Howest.MagicCards.GraphQL\Howest.MagicCards.GraphQL.csproj", "{3DA3200D-AD52-4404-A27A-955FB5B12750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Howest.MagicCards.GraphQL", "Howest.MagicCards.GraphQL\Howest.MagicCards.GraphQL.csproj", "{3DA3200D-AD52-4404-A27A-955FB5B12750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Howest.MagicCards.Shared", "Howest.MagicCards.Shared\Howest.MagicCards.Shared.csproj", "{42DEF710-10C4-4CFB-A84E-EB41FFB0DEA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Howest.MagicCards.Shared", "Howest.MagicCards.Shared\Howest.MagicCards.Shared.csproj", "{42DEF710-10C4-4CFB-A84E-EB41FFB0DEA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Howest.MagicCards.Web", "Howest.MagicCards.Web\Howest.MagicCards.Web.csproj", "{608AC155-6FF8-427D-9BCF-F73D121CD33A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Howest.MagicCards.Web", "Howest.MagicCards.Web\Howest.MagicCards.Web.csproj", "{608AC155-6FF8-427D-9BCF-F73D121CD33A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Howest.MagicCards.MinimalAPI", "Howest.MagicCards.MinimalAPI\Howest.MagicCards.MinimalAPI.csproj", "{9DFA170D-ED39-4F08-AA37-BC5DFC84E298}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{608AC155-6FF8-427D-9BCF-F73D121CD33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{608AC155-6FF8-427D-9BCF-F73D121CD33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{608AC155-6FF8-427D-9BCF-F73D121CD33A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFA170D-ED39-4F08-AA37-BC5DFC84E298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFA170D-ED39-4F08-AA37-BC5DFC84E298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFA170D-ED39-4F08-AA37-BC5DFC84E298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFA170D-ED39-4F08-AA37-BC5DFC84E298}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{3DA3200D-AD52-4404-A27A-955FB5B12750} = {6D368BFA-5FAE-415F-BC2D-DFCB60877B27}
 		{42DEF710-10C4-4CFB-A84E-EB41FFB0DEA9} = {6E25D20E-8C10-485B-A1F3-69BD56805209}
 		{608AC155-6FF8-427D-9BCF-F73D121CD33A} = {AF5F59A0-76E6-4C33-9330-08AFFFDCACEF}
+		{9DFA170D-ED39-4F08-AA37-BC5DFC84E298} = {6D368BFA-5FAE-415F-BC2D-DFCB60877B27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32ED5EE7-4D3C-4B3A-BBAA-F12997952615}
