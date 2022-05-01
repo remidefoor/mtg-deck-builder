@@ -1,13 +1,13 @@
 # Data Access Library
 
-- Entities
-- DB context
-- Repositories
+- ~~Entities~~
+- ~~DB context~~
+- ~~Repositories~~
 
 # Shared Library
 
-- DTOs
-- Mappings
+- ~~DTOs~~
+- ~~Mappings~~
 - Filters
 - Extension methods
 

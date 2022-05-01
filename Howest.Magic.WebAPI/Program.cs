@@ -10,7 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<mtg_v1Context>(options =>
-    options.UseSqlServer(config.GetConnectionString("MtgV1Db")));
+    options.UseSqlServer(config.GetConnectionString("MgtV1Db")));
+builder.Services.AddScoped<ICardRepository, SqlCardRepository>();
+
+builder.Services.AddAutoMapper(new System.Type[]
+    {
+        typeof(Howest.MagicCards.Shared.Mappings.CardsProfile)
+    });
 
 WebApplication app = builder.Build();
 
