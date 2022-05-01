@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Howest.MagicCards.DAL.Models
+namespace Howest.MagicCards.DAL.Entities
 {
     public partial class CardType
     {

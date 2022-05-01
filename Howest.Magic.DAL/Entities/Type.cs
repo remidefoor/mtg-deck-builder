@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Howest.MagicCards.DAL.Models
+namespace Howest.MagicCards.DAL.Entities
 {
-    public partial class Rarity
+    public partial class Type
     {
-        public Rarity()
+        public Type()
         {
-            Cards = new HashSet<Card>();
+            CardTypes = new HashSet<CardType>();
         }
 
         public long Id { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
+        public string Type1 { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public virtual ICollection<Card> Cards { get; set; }
+        public virtual ICollection<CardType> CardTypes { get; set; }
     }
 }

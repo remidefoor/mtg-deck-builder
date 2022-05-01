@@ -3,17 +3,18 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Howest.MagicCards.DAL.Models
+namespace Howest.MagicCards.DAL.Entities
 {
-    public partial class Artist
+    public partial class Set
     {
-        public Artist()
+        public Set()
         {
             Cards = new HashSet<Card>();
         }
 
         public long Id { get; set; }
-        public string FullName { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

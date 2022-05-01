@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Howest.MagicCards.DAL.Models
+namespace Howest.MagicCards.DAL.Entities
 {
     public partial class mtg_v1Context : DbContext
     {
