@@ -1,6 +1,6 @@
 ﻿namespace Howest.MagicCards.DAL.Repositories;
 
-internal interface ICardRepository
+public interface ICardRepository
 {
     IQueryable<Card> ReadCards();
 }
