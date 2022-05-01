@@ -1,5 +1,9 @@
-﻿namespace Howest.MagicCards.GraphQL.GraphQLTypes;
+﻿namespace Howest.MagicCards.GraphQLTypes;
 
-public class RootSchema
+public class RootSchema : Schema
 {
+    public RootSchema(IServiceProvider provider): base(provider)
+    {
+        Query = provider.GetRequiredService<RootQuery>();
+    }
 }
