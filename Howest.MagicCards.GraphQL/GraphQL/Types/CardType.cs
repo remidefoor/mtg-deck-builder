@@ -1,4 +1,4 @@
-﻿namespace Howest.MagicCards.GraphQLTypes;
+﻿namespace Howest.MagicCards.GrahpQL.GraphQLTypes;
 
 public class CardType : ObjectGraphType<Card>
 {
