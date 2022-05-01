@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<mtg_v1Context>(options =>
-    options.UseSqlServer(config.GetConnectionString("MtgV1Db"));
+    options.UseSqlServer(config.GetConnectionString("MtgV1Db")));
 
 WebApplication app = builder.Build();
 

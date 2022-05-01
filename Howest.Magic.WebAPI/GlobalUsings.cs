@@ -1,1 +1,1 @@
-﻿global using Howest.MagicCards.DAL.Models;
+﻿global using Howest.MagicCards.DAL.Entities;
