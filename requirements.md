@@ -82,10 +82,16 @@
     - [ ] filters
       - [ ] id
 
-# Video
+# video
 
 - [ ] Web Application
 - [ ] Swagger UI
   - [ ] Minimal API
   - [ ] Web API
 - [ ] GraphQL API
+
+
+
+# questions
+
+- Wanneer een property van een entiteit van het type string is maar dit eigenlijk een getal voorstelt, welk type gebruik je dan?
