@@ -38,8 +38,8 @@ namespace Howest.MagicCards.DAL.Entities
         public DateTime? UpdatedAt { get; set; }
 
         public virtual Artist Artist { get; set; }
-        public virtual Rarity RarityCodeNavigation { get; set; }
-        public virtual Set SetCodeNavigation { get; set; }
+        public virtual Rarity Rarity { get; set; }
+        public virtual Set Set { get; set; }
         public virtual ICollection<CardColor> CardColors { get; set; }
         public virtual ICollection<CardType> CardTypes { get; set; }
     }
