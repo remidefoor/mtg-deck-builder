@@ -1,0 +1,21 @@
+﻿query Cards{
+	cards {
+    ...card
+  }
+}
+
+fragment card on Card {
+  id
+  name
+  totalManaCost
+  toughness
+  power
+  artist {
+    ...artist
+  }
+}
+
+fragment artist on Artist {
+  id
+  fullName
+}
