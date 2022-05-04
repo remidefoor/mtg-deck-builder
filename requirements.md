@@ -77,10 +77,10 @@
     - [ ] filters
       - [ ] limit (optional)
 
-  - [ ] artist
-    - [ ] ...
-    - [ ] filters
-      - [ ] id
+  - [x] artist
+    - [x] ...
+    - [x] filters
+      - [x] id
 
 # video
 

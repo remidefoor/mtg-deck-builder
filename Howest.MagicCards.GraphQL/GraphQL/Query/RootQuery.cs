@@ -21,12 +21,26 @@ public class RootQuery : ObjectGraphType
         Field<ListGraphType<ArtistType>>
         (
             "Artists",
-            description: "Get artists",
+            Description = "Get artists",
             resolve: context =>
             {
                 return artistRepository.ReadArtists()
-                    .Take(10)
                     .ToList();
+            }
+        );
+
+        Field<ArtistType>
+        (
+            "Artist",
+            Description = "Get artist",
+            arguments: new QueryArguments
+            {
+                new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "Id" }
+            },
+            resolve: context =>
+            {
+                long id = context.GetArgument<long>("Id");
+                return artistRepository.ReadArtist(id);
             }
         );
     }

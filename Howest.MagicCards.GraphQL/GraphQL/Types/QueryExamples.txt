@@ -16,6 +16,15 @@ query Artists {
   }
 }
 
+query Artist {
+  artist(id: 1) {
+    ...artist
+    cards {
+      ...card
+    }
+  }
+}
+
 fragment card on Card {
   id
   name

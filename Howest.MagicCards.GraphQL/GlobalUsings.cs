@@ -1,4 +1,5 @@
-﻿global using GraphQL.Types;
+﻿global using GraphQL;
+global using GraphQL.Types;
 
 global using Howest.MagicCards.GraphQL.GraphQLTypes;
 
