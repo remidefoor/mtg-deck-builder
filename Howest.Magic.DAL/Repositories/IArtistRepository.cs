@@ -2,6 +2,6 @@
 
 public interface IArtistRepository
 {
-    IQueryable<Artist> GetArtists();
-    Artist GetArtist(long id);
+    IQueryable<Artist> ReadArtists();
+    Artist? ReadArtist(long id);
 }

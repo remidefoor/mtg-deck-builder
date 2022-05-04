@@ -9,13 +9,13 @@ public class SqlArtistRepository : IArtistRepository
         _db = mtg_V1DBContext;
     }
 
-    public IQueryable<Artist> GetArtists()
+    public IQueryable<Artist> ReadArtists()
     {
         return _db.Artists
             .Select(artist => artist);
     }
 
-    public Artist GetArtist(long id)
+    public Artist? ReadArtist(long id)
     {
         return _db.Artists
             .SingleOrDefault(artist => artist.Id == id);

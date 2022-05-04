@@ -64,16 +64,16 @@
 - [ ] queries
 
   - [ ] cards
-    - [ ] ...
-    - [ ] artist
+    - [x] ...
+    - [x] artist
     - [ ] filters
       - [ ] power (optional)
       - [ ] toughness (optional)
 
   - [ ] artists
-    - [ ] id
-    - [ ] full name
-    - [ ] cards
+    - [x] id
+    - [x] full name
+    - [x] cards
     - [ ] filters
       - [ ] limit (optional)
 

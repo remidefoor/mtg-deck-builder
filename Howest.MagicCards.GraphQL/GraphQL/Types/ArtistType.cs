@@ -13,7 +13,7 @@ public class ArtistType : ObjectGraphType<Artist>
         (
             "Cards",
             "The cards of the artist",
-            resolve: context => cardRepository.ReadCards()
+            resolve: context => cardRepository.ReadCardsByArtist(context.Source.Id)
         );
     }
 }

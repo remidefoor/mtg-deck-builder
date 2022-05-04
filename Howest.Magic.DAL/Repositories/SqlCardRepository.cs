@@ -14,4 +14,10 @@ public class SqlCardRepository : ICardRepository
         return _db.Cards
             .Select(card => card);
     }
+
+    public IQueryable<Card> ReadCardsByArtist(long artistId)
+    {
+        return _db.Cards
+            .Where(card => card.Artist.Id == artistId);
+    }
 }

@@ -36,7 +36,7 @@ public class CardType : ObjectGraphType<Card>
         (
             "Artist",
             "The artist of the card",
-            resolve: context => artistRepository.GetArtist(context.Source.Id)
+            resolve: context => artistRepository.ReadArtist(context.Source.Id)
         );
     }
 }

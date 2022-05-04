@@ -1,6 +1,18 @@
-﻿query Cards{
+﻿query Cards {
 	cards {
     ...card
+    artist {
+      ...artist
+    }
+  }
+}
+
+query Artists {
+  artists {
+    ...artist
+    cards {
+      ...card
+    }
   }
 }
 
@@ -10,9 +22,6 @@ fragment card on Card {
   totalManaCost
   toughness
   power
-  artist {
-    ...artist
-  }
 }
 
 fragment artist on Artist {
