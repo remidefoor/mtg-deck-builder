@@ -1,4 +1,4 @@
-﻿namespace Howest.MagicCards.GrahpQL.GraphQLTypes;
+﻿namespace Howest.MagicCards.GraphQL.GraphQLTypes;
 
 public class RootSchema : Schema
 {
