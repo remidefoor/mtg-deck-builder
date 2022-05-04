@@ -1,8 +1,8 @@
-﻿namespace Howest.MagicCards.GrahpQL.GraphQLTypes;
+﻿namespace Howest.MagicCards.GraphQL.GraphQLTypes;
 
 public class CardType : ObjectGraphType<Card>
 {
-    public CardType()
+    public CardType(IArtistRepository artistRepository)
     {
         Name = "Card";
         Description = "Magic The Gathering card";
@@ -23,7 +23,7 @@ public class CardType : ObjectGraphType<Card>
         Field(card => card.Power, type: typeof(StringGraphType)).Description("The power of the card");
         Field(card => card.Toughness, type: typeof(StringGraphType)).Description("The toughness of the card");
         Field(card => card.Layout, type: typeof(StringGraphType)).Description("The layout of the card");
-        Field(card => card.MultiverseId, type: typeof(NonNullGraphType<IntGraphType>)).Description("The multiverse id of the card");
+        Field(card => card.MultiverseId, type: typeof(IntGraphType)).Description("The multiverse id of the card");
         Field(card => card.OriginalImageUrl, type: typeof(StringGraphType)).Description("The image URL of the card")
             .Name("ImageUrl");
         Field(card => card.Image, type: typeof(StringGraphType)).Description("The imge of the card");
@@ -32,5 +32,11 @@ public class CardType : ObjectGraphType<Card>
         Field(card => card.OriginalType, type: typeof(StringGraphType)).Description("The original type of the card");
         Field(card => card.MtgId, type: typeof(StringGraphType)).Description("The MTG ID of the card");
         Field(card => card.Variations, type: typeof(StringGraphType)).Description("The variations of the card");
+        Field<ArtistType>
+        (
+            "Artist",
+            "The artist of the card",
+            resolve: context => artistRepository.GetArtist(context.Source.Id)
+        );
     }
 }
