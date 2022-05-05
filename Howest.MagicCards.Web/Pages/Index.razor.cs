@@ -1,18 +1,41 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Text.Json;
 
 namespace Howest.MagicCards.Web.Pages;
 
 public partial class Index
 {
-    private IEnumerable<CardReadDTO> _cards = new List<CardReadDTO>()
-    {
-        new CardReadDTO() { Id = 1, Name = "Ancestor's Chosen", ManaCost = "{5}{W}{W}", Power = "4", Toughness = "4", ImageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card" },
-        new CardReadDTO() { Id = 1, Name = "Ancestor's Chosen", ManaCost = "{5}{W}{W}", Power = "4", Toughness = "4", ImageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card" },
-        new CardReadDTO() { Id = 1, Name = "Ancestor's Chosen", ManaCost = "{5}{W}{W}", Power = "4", Toughness = "4", ImageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card" },
-        new CardReadDTO() { Id = 1, Name = "Ancestor's Chosen", ManaCost = "{5}{W}{W}", Power = "4", Toughness = "4", ImageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card" },
-        new CardReadDTO() { Id = 1, Name = "Ancestor's Chosen", ManaCost = "{5}{W}{W}", Power = "4", Toughness = "4", ImageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card" }
-    };
+    private readonly JsonSerializerOptions _jsonOptions;
+    private HttpClient _httpClient;
+    private IEnumerable<CardReadDTO>? _cards = null;
 
     [Inject]
-    public IHttpClientFactory httpClientFactory { get; init; }
+    public IHttpClientFactory? HttpClientFactory { get; init; }
+
+    public Index()
+    {
+        _jsonOptions = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true,
+        };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("CardAPI");
+        await GetCards();
+    }
+
+    private async Task GetCards()
+    {
+        HttpResponseMessage response = await _httpClient.GetAsync("Cards");
+        string apiResponse = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            _cards = JsonSerializer.Deserialize<IEnumerable<CardReadDTO>>(apiResponse, _jsonOptions);
+        } else
+        {
+            _cards = new List<CardReadDTO>();
+        }
+    }
 }

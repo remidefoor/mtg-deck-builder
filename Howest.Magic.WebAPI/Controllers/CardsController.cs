@@ -20,7 +20,7 @@ namespace Howest.MagicCards.WebAPI.Controllers
         public ActionResult<IEnumerable<CardReadDTO>> GetCards()
         {
             return (_cardRepository.ReadCards() is IQueryable<Card> cards)
-                ? Ok(cards.Take(10)
+                ? Ok(cards.Take(20)
                     .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
                     .ToList())
                 : Ok();

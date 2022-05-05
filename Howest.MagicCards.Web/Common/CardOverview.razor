@@ -1,8 +1,11 @@
 ﻿<h3>CardOverview</h3>
 
-<ul>
-    @foreach (CardReadDTO card in Cards)
+<section>
+    @if (Cards != null)
     {
-        <li>@card.Name</li>
+        @foreach (CardReadDTO card in Cards)
+    {
+        <img src="@card.ImageUrl" alt="@card.Name" />
     }
-</ul>
+    }
+</section>
