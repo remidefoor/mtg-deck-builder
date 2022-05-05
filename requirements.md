@@ -8,7 +8,7 @@
 
 - ~~DTOs~~
 - ~~Mappings~~
-- Filters
+- ~~Filters~~
 - Extension methods
 
 # Minimal API
@@ -33,15 +33,12 @@
 - [ ] filtering
 
   - [ ] set
-
   - [ ] artist
-
   - [ ] rarity
-
-  - [ ] card name
-
-  - [ ] card text
-
+  - [ ] name
+  - [ ] text
+  - [ ] extension method (optional)
+  
 - [ ] sorting
   - [ ] card name
 
