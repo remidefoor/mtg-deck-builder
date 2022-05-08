@@ -14,6 +14,8 @@
 # Minimal API
 
 - post deck
+  - validation
+
 - delete deck
 
 # Web API
@@ -22,26 +24,22 @@
 
 # Web Application
 
-- [ ] Blazor Server
+- [x] Blazor Server
 
 ## overview
 
 - [ ] start up
-  - [ ] first 150 cards
+  - [x] first 150 cards
     - [ ] caching
+- [x] filtering
 
-- [ ] filtering
-
-  - [ ] set
-  - [ ] artist
-  - [ ] rarity
-  - [ ] name
-  - [ ] text
-  - [ ] extension method (optional)
-  
+  - [x] set
+  - [x] artist
+  - [x] rarity
+  - [x] name
+  - [x] text
 - [ ] sorting
   - [ ] card name
-
 - [ ] card click > add
 
 ## deck
@@ -90,5 +88,3 @@
 
 
 # questions
-
-- Wanneer een property van een entiteit van het type string is maar dit eigenlijk een getal voorstelt, welk type gebruik je dan?
