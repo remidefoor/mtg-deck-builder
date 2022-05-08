@@ -2,7 +2,7 @@
 
 namespace Howest.MagicCards.Web.Common;
 
-public partial class CardOverview
+public partial class CardsOverview
 {
     [Parameter]
     public IEnumerable<CardReadDTO> Cards { get; init; }

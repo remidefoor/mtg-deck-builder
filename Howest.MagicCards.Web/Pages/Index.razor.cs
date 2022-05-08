@@ -5,9 +5,10 @@ namespace Howest.MagicCards.Web.Pages;
 
 public partial class Index
 {
+    private FilterViewModel _filter;
+    private IEnumerable<CardReadDTO>? _cards = null;
     private readonly JsonSerializerOptions _jsonOptions;
     private HttpClient _httpClient;
-    private IEnumerable<CardReadDTO>? _cards = null;
 
     [Inject]
     public IHttpClientFactory? HttpClientFactory { get; init; }
@@ -22,6 +23,7 @@ public partial class Index
 
     protected override async Task OnInitializedAsync()
     {
+        _filter = new FilterViewModel();
         _httpClient = HttpClientFactory.CreateClient("CardAPI");
         await GetCards();
     }

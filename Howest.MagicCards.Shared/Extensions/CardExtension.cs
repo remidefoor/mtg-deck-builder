@@ -21,7 +21,7 @@ public static class CardExtension
         return cards;
     }
 
-    public static IQueryable<Card> Sort(this IQueryable<Card> cards, SortingFilter sortingFilter)
+    public static IQueryable<Card> Sort(this IQueryable<Card> cards, SortFilter sortingFilter)
     {
         if (sortingFilter.Sort.Equals(ascendingOrder, StringComparison.OrdinalIgnoreCase))
         {

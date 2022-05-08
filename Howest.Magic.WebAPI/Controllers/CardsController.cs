@@ -19,7 +19,7 @@ namespace Howest.MagicCards.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<CardReadDTO>), 200)]
-        public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter, [FromQuery] SortingFilter sortingFilter)
+        public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter, [FromQuery] SortFilter sortingFilter)
         {
             try
             {

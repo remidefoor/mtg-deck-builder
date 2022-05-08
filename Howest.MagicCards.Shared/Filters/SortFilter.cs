@@ -1,6 +1,6 @@
 ﻿namespace Howest.MagicCards.Shared.Filters;
 
-public class SortingFilter
+public class SortFilter
 {
     public string Sort { get; init; } = "";
 }
