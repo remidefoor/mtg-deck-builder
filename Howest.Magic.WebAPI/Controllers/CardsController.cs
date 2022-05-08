@@ -16,14 +16,22 @@ namespace Howest.MagicCards.WebAPI.Controllers
             _mapper = mapper;
         }
 
+
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CardReadDTO>), 200)]
         public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter)
         {
-            return (_cardRepository.ReadCards() is IQueryable<Card> cards)
-                ? Ok(cards.Filter(cardFilter)
-                    .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
-                    .ToList())
-                : Ok();
+            try
+            {
+                IEnumerable<CardReadDTO> cards = _cardRepository.ReadCards()
+                .Filter(cardFilter)
+                .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
+                .ToList();
+                return Ok(cards);
+            } catch (Exception ex)
+            {
+                return Ok(new List<CardReadDTO>());
+            }
         }
     }
 }
