@@ -88,3 +88,7 @@
 
 
 # questions
+
+- Minimal API Swagger does not launch.
+- Duplicate code Program.cs <=> SwaggerEndPoints.cs.
+- get deck: minimal API || web API?
