@@ -18,4 +18,18 @@ public static class CardExtension
 
         return cards;
     }
+
+    public static IQueryable<Card> Sort(this IQueryable<Card> cards, SortingFilter sortingFilter)
+    {
+        if (sortingFilter.Sort == "Asc")
+        {
+            return cards.OrderBy(card => card.Name);
+        } else if (sortingFilter.Sort == "Desc")
+        {
+            return cards.OrderByDescending(card => card.Name);
+        } else
+        {
+            return cards;
+        }
+    }
 }

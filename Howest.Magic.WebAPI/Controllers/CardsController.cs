@@ -19,14 +19,15 @@ namespace Howest.MagicCards.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<CardReadDTO>), 200)]
-        public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter)
+        public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter, [FromQuery] SortingFilter sortingFilter)
         {
             try
             {
                 IEnumerable<CardReadDTO> cards = _cardRepository.ReadCards()
-                .Filter(cardFilter)
-                .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
-                .ToList();
+                    .Sort(sortingFilter) // first 150 of sorted cards, not 150 sorted cards
+                    .Filter(cardFilter)
+                    .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
+                    .ToList();
                 return Ok(cards);
             } catch (Exception ex)
             {
