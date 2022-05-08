@@ -2,20 +2,20 @@
 
 public class CardFilter
 {
-    private const string DefaultFilter = "All"; // TODO move to appsettings
+    private const string defaultFilter = "All"; // TODO move to appsettings
 
-    public string Name { get; init; } = DefaultFilter;
-    public string Text { get; init; } = DefaultFilter;
-    public string Set { get; init; } = DefaultFilter;
-    public string Rarity { get; init; } = DefaultFilter;
-    public string Artist { get; init; } = DefaultFilter;
+    public string Name { get; init; } = defaultFilter;
+    public string Text { get; init; } = defaultFilter;
+    public string Set { get; init; } = defaultFilter;
+    public string Rarity { get; init; } = defaultFilter;
+    public string Artist { get; init; } = defaultFilter;
 
     public bool HasFilters()
     {
-        return !Name.Equals(DefaultFilter, StringComparison.OrdinalIgnoreCase)
-            || !Text.Equals(DefaultFilter, StringComparison.OrdinalIgnoreCase)
-            || !Set.Equals(DefaultFilter, StringComparison.OrdinalIgnoreCase)
-            || !Rarity.Equals(DefaultFilter, StringComparison.OrdinalIgnoreCase)
-            || !Artist.Equals(DefaultFilter, StringComparison.OrdinalIgnoreCase);
+        return !Name.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
+            || !Text.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
+            || !Set.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
+            || !Rarity.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
+            || !Artist.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase);
     }
 }
