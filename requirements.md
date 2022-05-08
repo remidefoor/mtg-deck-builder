@@ -9,7 +9,7 @@
 - ~~DTOs~~
 - ~~Mappings~~
 - ~~Filters~~
-- Extension methods
+- ~~Extension methods~~
 
 # Minimal API
 

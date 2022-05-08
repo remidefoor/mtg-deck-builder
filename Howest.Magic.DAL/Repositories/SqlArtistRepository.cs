@@ -11,7 +11,7 @@ public class SqlArtistRepository : IArtistRepository
 
     public IQueryable<Artist> ReadArtists()
     {
-        return _db.Artists
+        return _db.Artists // TODO include set, rarity & artist?
             .Select(artist => artist);
     }
 

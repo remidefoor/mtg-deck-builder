@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Howest.MagicCards.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Howest.MagicCards.WebAPI.Controllers
@@ -17,10 +17,10 @@ namespace Howest.MagicCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CardReadDTO>> GetCards()
+        public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter)
         {
             return (_cardRepository.ReadCards() is IQueryable<Card> cards)
-                ? Ok(cards.Take(20)
+                ? Ok(cards.Filter(cardFilter)
                     .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
                     .ToList())
                 : Ok();

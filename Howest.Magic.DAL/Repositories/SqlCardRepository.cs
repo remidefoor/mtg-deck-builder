@@ -1,4 +1,6 @@
-﻿namespace Howest.MagicCards.DAL.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Howest.MagicCards.DAL.Repositories;
 
 public class SqlCardRepository : ICardRepository
 {
