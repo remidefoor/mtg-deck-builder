@@ -40,12 +40,13 @@
     <div class="form-group">
         <label for="sort">Sort</label>
         <InputSelect id="sort" class="form-control" @bind-Value="@_filter.Sort">
+            <option value="None" selected="selected">None</option>
             <option value="Asc">Ascending</option>
             <option value="Desc">Descending</option>
         </InputSelect>
     </div>
 
-    <input type="submit" id="button-filter" class="btn" value="Filter" />
+    <input type="submit" id="button-filter" class="btn btn-primary" value="Filter" />
 </EditForm>
 
 <CardsOverview Cards="_cards"></CardsOverview>

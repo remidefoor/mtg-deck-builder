@@ -30,7 +30,8 @@ public partial class Index
 
     private async Task GetCards()
     {
-        HttpResponseMessage response = await _httpClient.GetAsync("Cards");
+        string queryString = _filter.GetQueryString();
+        HttpResponseMessage response = await _httpClient.GetAsync($"Cards{queryString}");
         string apiResponse = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
