@@ -1,5 +1,6 @@
 ﻿using Howest.MagicCards.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Howest.MagicCards.WebAPI.Controllers
 {
@@ -9,11 +10,13 @@ namespace Howest.MagicCards.WebAPI.Controllers
     {
         private readonly ICardRepository _cardRepository;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _cache;
 
-        public CardsController(ICardRepository cardRepository, IMapper mapper)
+        public CardsController(ICardRepository cardRepository, IMapper mapper, IMemoryCache memoryCache)
         {
             _cardRepository = cardRepository;
             _mapper = mapper;
+            _cache = memoryCache;
         }
 
 
