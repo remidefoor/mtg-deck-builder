@@ -27,6 +27,7 @@ namespace Howest.MagicCards.DAL.Entities
         public virtual DbSet<Rarity> Rarities { get; set; }
         public virtual DbSet<Set> Sets { get; set; }
         public virtual DbSet<Type> Types { get; set; }
+        public virtual DbSet<Type> Deck { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -367,6 +368,15 @@ namespace Howest.MagicCards.DAL.Entities
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("updated_at");
+            });
+
+            modelBuilder.Entity<Deck>(entity =>
+            {
+                entity.ToTable("deck");
+
+                entity.Property(e => e.CardId)
+                    .IsRequired()
+                    .HasColumnName("card_id");
             });
 
             modelBuilder.Entity<Type>(entity =>
