@@ -1,4 +1,6 @@
-﻿namespace Howest.MagicCards.DAL.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Howest.MagicCards.DAL.Repositories;
 public class SqlDeckRepository : IDeckRepository
 {
     private readonly mtg_v1Context _db;
@@ -8,13 +10,20 @@ public class SqlDeckRepository : IDeckRepository
         _db = mtg_V1DBContext;
     }
 
-    public void CreateDeck(List<long> cards)
+    public async Task CreateDeck(IEnumerable<DeckCard> deck)
     {
-        // TODO implement
+        _db.Deck.AddRangeAsync(deck);
+        await SaveAsync();
     }
 
-    public void DeleteDeck()
+    public async Task DeleteDeck()
     {
-        // TODO implement
+        _db.Deck.FromSqlRaw("DELETE FROM deck");
+        await SaveAsync();
+    }
+
+    private async Task<bool> SaveAsync()
+    {
+        return await _db.SaveChangesAsync() > 0;
     }
 }

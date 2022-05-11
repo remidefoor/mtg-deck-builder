@@ -26,8 +26,8 @@ namespace Howest.MagicCards.DAL.Entities
         public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
         public virtual DbSet<Rarity> Rarities { get; set; }
         public virtual DbSet<Set> Sets { get; set; }
+        public virtual DbSet<DeckCard> Deck { get; set; }
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<Type> Deck { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -370,7 +370,7 @@ namespace Howest.MagicCards.DAL.Entities
                     .HasColumnName("updated_at");
             });
 
-            modelBuilder.Entity<Deck>(entity =>
+            modelBuilder.Entity<DeckCard>(entity =>
             {
                 entity.ToTable("deck");
 

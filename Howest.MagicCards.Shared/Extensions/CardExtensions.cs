@@ -2,7 +2,7 @@
 
 namespace Howest.MagicCards.Shared.Extensions;
 
-public static class CardExtension
+public static class CardExtensions
 {
     private const string defaultFilter = "All"; // TODO move to appsettings
     private const string ascendingOrder = "Asc"; // TODO move to appsettings

@@ -2,6 +2,6 @@
 
 public interface IDeckRepository
 {
-    void CreateDeck(List<long> cards);
-    void DeleteDeck();
+    Task CreateDeck(IEnumerable<DeckCard> deck);
+    Task DeleteDeck();
 }
