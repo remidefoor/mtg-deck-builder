@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Text.Json;
 
 namespace Howest.MagicCards.Web.Pages;
@@ -13,6 +14,9 @@ public partial class Index
 
     [Inject]
     public IHttpClientFactory? HttpClientFactory { get; init; }
+
+    [Inject]
+    public ProtectedLocalStorage Storage { get; init; }
 
     public Index()
     {
@@ -44,11 +48,38 @@ public partial class Index
         }
     }
 
+    /* protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _deck = await GetDeckFromLocalStorage();
+        }
+    } */
+
+    private async Task<IList<CardReadDTO>> GetDeckFromLocalStorage()
+    {
+        ProtectedBrowserStorageResult<IList<CardReadDTO>> deck = await Storage.GetAsync<IList<CardReadDTO>>("deck");
+        if (deck.Success)
+        {
+            return deck.Value;
+        }
+        else
+        {
+            return new List<CardReadDTO>();
+        }
+    }
+
     private void AddCardToDeck(CardReadDTO card)
     {
         if (_deck.Count < 60)
         {
             _deck.Add(card);
+            SetDeckInLocalStorage();
         }
+    }
+
+    private void SetDeckInLocalStorage()
+    {
+        _ = Storage.SetAsync("deck", _deck);
     }
 }
