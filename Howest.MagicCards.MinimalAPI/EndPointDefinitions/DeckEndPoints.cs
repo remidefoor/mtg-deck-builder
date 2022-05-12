@@ -18,13 +18,21 @@ public class DeckEndPoints : IEndpointDefinition
         services.AddScoped<IDeckRepository, SqlDeckRepository>();
     }
 
-    private IResult PostDeck(IDeckRepository deckRepository, DeckWriteDTO deck)
+    private async Task<IResult> PostDeck(IDeckRepository deckRepository, DeckWriteDTO deck)
     {
-        throw new NotImplementedException();
+        
     }
 
-    private IResult DeleteDeck(IDeckRepository deckRepository)
+    private async Task<IResult> DeleteDeck(IDeckRepository deckRepository)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await deckRepository.DeleteDeck();
+            return Results.NoContent();
+        }
+        catch (Exception ex)
+        {
+            return Results.StatusCode(500);
+        }
     }
 }

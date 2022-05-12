@@ -26,7 +26,8 @@ namespace Howest.MagicCards.DAL.Entities
         public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
         public virtual DbSet<Rarity> Rarities { get; set; }
         public virtual DbSet<Set> Sets { get; set; }
-        public virtual DbSet<DeckCard> Deck { get; set; }
+        public virtual DbSet<Deck> Decks { get; set; }
+        public virtual DbSet<DeckCard> DeckCards { get; set; }
         public virtual DbSet<Type> Types { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -257,6 +258,52 @@ namespace Howest.MagicCards.DAL.Entities
                     .HasColumnName("updated_at");
             });
 
+            modelBuilder.Entity<Deck>(entity =>
+            {
+                entity.ToTable("decks");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<DeckCard>(entity =>
+            {
+                entity.HasKey(e => new { e.DeckId, e.CardId })
+                    .HasName("PK__decks_ca__E80518CDBD6D7937");
+
+                entity.ToTable("deck_cards");
+
+                entity.Property(e => e.DeckId)
+                    .IsRequired()
+                    .HasColumnName("deck_id");
+
+                entity.Property(e => e.Card)
+                    .IsRequired()
+                    .HasColumnName("card_id");
+
+                entity.Property(e => e.Amount)
+                    .IsRequired()
+                    .HasColumnName("amount");
+
+                entity.HasOne(d => d.Deck)
+                    .WithMany(p => p.DeckCards)
+                    .HasPrincipalKey(p => p.Id)
+                    .HasForeignKey(d => d.DeckId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_decks");
+
+                entity.HasOne(d => d.Card)
+                    .WithMany(p => p.DeckCards)
+                    .HasPrincipalKey(p => p.Id)
+                    .HasForeignKey(d => d.CardId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_cards");
+            });
+
             modelBuilder.Entity<Migration>(entity =>
             {
                 entity.ToTable("migrations");
@@ -368,15 +415,6 @@ namespace Howest.MagicCards.DAL.Entities
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("updated_at");
-            });
-
-            modelBuilder.Entity<DeckCard>(entity =>
-            {
-                entity.ToTable("deck");
-
-                entity.Property(e => e.CardId)
-                    .IsRequired()
-                    .HasColumnName("card_id");
             });
 
             modelBuilder.Entity<Type>(entity =>
