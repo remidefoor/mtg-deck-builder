@@ -22,13 +22,22 @@ namespace Howest.MagicCards.DAL.Entities
         public virtual DbSet<CardColor> CardColors { get; set; }
         public virtual DbSet<CardType> CardTypes { get; set; }
         public virtual DbSet<Color> Colors { get; set; }
+        public virtual DbSet<Deck> Decks { get; set; }
+        public virtual DbSet<DeckCard> DeckCards { get; set; }
         public virtual DbSet<Migration> Migrations { get; set; }
         public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
         public virtual DbSet<Rarity> Rarities { get; set; }
         public virtual DbSet<Set> Sets { get; set; }
-        public virtual DbSet<Deck> Decks { get; set; }
-        public virtual DbSet<DeckCard> DeckCards { get; set; }
         public virtual DbSet<Type> Types { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-SOKHD6MN\\SQLEXPRESS;Initial Catalog=mtg_v1;Integrated Security=True");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -265,7 +274,6 @@ namespace Howest.MagicCards.DAL.Entities
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(255)
                     .HasColumnName("name");
             });
@@ -273,35 +281,26 @@ namespace Howest.MagicCards.DAL.Entities
             modelBuilder.Entity<DeckCard>(entity =>
             {
                 entity.HasKey(e => new { e.DeckId, e.CardId })
-                    .HasName("PK__decks_ca__E80518CDBD6D7937");
+                    .HasName("PK__deck_car__E80518CD6E487AED");
 
                 entity.ToTable("deck_cards");
 
-                entity.Property(e => e.DeckId)
-                    .IsRequired()
-                    .HasColumnName("deck_id");
+                entity.Property(e => e.DeckId).HasColumnName("deck_id");
 
-                entity.Property(e => e.Card)
-                    .IsRequired()
-                    .HasColumnName("card_id");
+                entity.Property(e => e.CardId).HasColumnName("card_id");
 
-                entity.Property(e => e.Amount)
-                    .IsRequired()
-                    .HasColumnName("amount");
-
-                entity.HasOne(d => d.Deck)
-                    .WithMany(p => p.DeckCards)
-                    .HasPrincipalKey(p => p.Id)
-                    .HasForeignKey(d => d.DeckId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("fk_decks");
+                entity.Property(e => e.Amount).HasColumnName("amount");
 
                 entity.HasOne(d => d.Card)
                     .WithMany(p => p.DeckCards)
-                    .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.CardId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_cards");
+
+                entity.HasOne(d => d.Deck)
+                    .WithMany(p => p.DeckCards)
+                    .HasForeignKey(d => d.DeckId)
+                    .HasConstraintName("fk_decks");
             });
 
             modelBuilder.Entity<Migration>(entity =>

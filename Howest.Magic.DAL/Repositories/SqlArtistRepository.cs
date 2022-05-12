@@ -18,6 +18,6 @@ public class SqlArtistRepository : IArtistRepository
     public Artist? ReadArtist(long id)
     {
         return _db.Artists
-            .SingleOrDefault(artist => artist.Id == id);
+            .SingleOrDefault(artist => artist.Id == id); // TODO refactor to Single
     }
 }

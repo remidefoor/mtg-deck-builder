@@ -11,7 +11,7 @@ namespace Howest.MagicCards.DAL.Entities
         public long CardId { get; set; }
         public int Amount { get; set; }
 
-        public virtual Deck Deck { get; set; }
         public virtual Card Card { get; set; }
+        public virtual Deck Deck { get; set; }
     }
 }

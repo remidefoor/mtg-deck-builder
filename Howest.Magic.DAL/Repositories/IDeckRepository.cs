@@ -2,6 +2,7 @@
 
 public interface IDeckRepository
 {
-    Task CreateDeck(IEnumerable<DeckCard> deck);
-    Task DeleteDeck();
+    Task<Deck> ReadDeckAsync(long id);
+    Task<Deck?> CreateDeckAsync(Deck deck);
+    Task<Deck?> DeleteDeckAsync(Deck deck);
 }
