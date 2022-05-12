@@ -4,6 +4,7 @@ public class DecksProfile : Profile
 {
     public DecksProfile()
     {
-        CreateMap<Deck, DeckReadDTO>();
+        CreateMap<Deck, DeckReadDetailDTO>();
+        CreateMap<Deck, DeckWriteDTO>();
     }
 }

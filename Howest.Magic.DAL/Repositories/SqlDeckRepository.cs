@@ -21,9 +21,6 @@ public class SqlDeckRepository : IDeckRepository
         await _db.Decks.AddAsync(deck);
         await SaveAsync();
 
-        await _db.DeckCards.AddRangeAsync(deck.DeckCards);
-        await SaveAsync();
-
         return await ReadDeckAsync(deck.Id);
     }
 
