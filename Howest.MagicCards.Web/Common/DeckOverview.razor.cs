@@ -12,6 +12,12 @@ public partial class DeckOverview
 
     private void RemoveCardFromDeck(DeckCardReadDetailDTO deckCard)
     {
-        Deck.Remove(deckCard);
+        if (deckCard.Amount > 1)
+        {
+            deckCard.Amount--;
+        } else
+        {
+            Deck.Remove(deckCard);
+        }
     }
 }

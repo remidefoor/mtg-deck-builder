@@ -81,7 +81,7 @@ public partial class Index
             DeckCardReadDetailDTO deckCard = GetDeckCard(card.Id);
             if (deckCard is DeckCardReadDetailDTO)
             {
-                deckCard.Increment();
+                deckCard.Amount++;
             } else
             {
                 _deck.Add(new DeckCardReadDetailDTO()

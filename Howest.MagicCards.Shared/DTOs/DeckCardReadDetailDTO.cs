@@ -5,9 +5,4 @@ public record DeckCardReadDetailDTO
     public long CardId { get; init; }
     public string Name { get; init; }
     public int Amount { get; set; }
-
-    public void Increment()
-    {
-        Amount++;
-    }
 }
