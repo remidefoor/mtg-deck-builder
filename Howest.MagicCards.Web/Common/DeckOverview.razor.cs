@@ -5,10 +5,13 @@ namespace Howest.MagicCards.Web.Common;
 public partial class DeckOverview
 {
     [Parameter]
-    public IList<CardReadDTO> Deck { get; init; }
+    public IList<DeckCardReadDetailDTO> Deck { get; init; }
 
-    private void RemoveCardFromDeck(CardReadDTO card)
+    [Inject]
+    public IMapper Mapper { get; set; }
+
+    private void RemoveCardFromDeck(DeckCardReadDetailDTO deckCard)
     {
-        Deck.Remove(card);
+        Deck.Remove(deckCard);
     }
 }

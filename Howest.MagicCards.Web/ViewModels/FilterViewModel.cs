@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text;
 
-namespace Howest.MagicCards.Shared.ViewModels;
+namespace Howest.MagicCards.Web.ViewModels;
 
 public class FilterViewModel
 {

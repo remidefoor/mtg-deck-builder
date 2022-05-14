@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+builder.Services.AddAutoMapper(new System.Type[]
+    {
+        typeof(Howest.MagicCards.Shared.Mappings.CardsProfile)
+    }
+);
+
 builder.Services.AddHttpClient("CardAPI", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7103/api/");

@@ -3,9 +3,11 @@
 
     @if (Deck != null)
     {
-        @foreach (CardReadDTO card in Deck)
-        {
-            <img src="@card.ImageUrl" alt="@card.Name" @onclick="@(() => RemoveCardFromDeck(card))" />
-        }
+        <ul>
+            @foreach (DeckCardReadDetailDTO deckCard in Deck)
+            {
+                <li @onclick="@(() => RemoveCardFromDeck(deckCard))">@deckCard.Name: @deckCard.Amount</li>
+            }
+        </ul>
     }
 </section>
