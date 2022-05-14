@@ -18,7 +18,7 @@ public class DeckEndPoints : IEndpointDefinition
             .Produces(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
 
-        app.MapDelete($"{_urlPrefix}/Decks/{{id:long}}", DeleteDeck)
+        app.MapDelete($"{_urlPrefix}/Decks/{{deckId:long}}", DeleteDeck)
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
     }
@@ -34,17 +34,17 @@ public class DeckEndPoints : IEndpointDefinition
             });
     }
 
-    private async Task<IResult> PostDeck(IDeckRepository deckRepository, IMapper mapper, DeckWriteDTO deck)
+    private async Task<IResult> PostDeck(IDeckRepository deckRepository, IMapper mapper, DeckWriteDTO deckDTO)
     {
-        return (await deckRepository.CreateDeckAsync(mapper.Map<Deck>(deck)) is Deck createdDeck)
-            ? Results.Created($"https://localhost:7103/api/Decks/{createdDeck.Id}", mapper.Map<DeckReadDetailDTO>(createdDeck))
+        return (await deckRepository.CreateDeckAsync(mapper.Map<Deck>(deckDTO)) is Deck createdDeck)
+            ? Results.Created($"https://localhost:7103{_urlPrefix}/Decks/{createdDeck.Id}", mapper.Map<DeckReadDetailDTO>(createdDeck)) // TODO refactor
             : Results.BadRequest();
     }
 
-    private async Task<IResult> DeleteDeck(IDeckRepository deckRepository, IMapper mapper, long id)
+    private async Task<IResult> DeleteDeck(IDeckRepository deckRepository, IMapper mapper, long deckId)
     {
-        return (await deckRepository.ReadDeckAsync(id) is Deck deck)
+        return (await deckRepository.ReadDeckAsync(deckId) is Deck deck)
             ? Results.Ok(mapper.Map<DeckReadDetailDTO>(await deckRepository.DeleteDeckAsync(deck)))
-            : Results.NotFound($"Deck with {id} was not found.");
+            : Results.NotFound($"Deck with {deckId} was not found.");
     }
 }
