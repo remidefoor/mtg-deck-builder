@@ -18,8 +18,7 @@ public class DeckEndPoints : IEndpointDefinition
         services.AddScoped<IDeckRepository, SqlDeckRepository>();
         services.AddAutoMapper(new System.Type[]
             {
-                typeof(Howest.MagicCards.Shared.Mappings.DecksProfile),
-                typeof(Howest.MagicCards.Shared.Mappings.DeckCardsProfile)
+                typeof(Howest.MagicCards.Shared.Mappings.DecksProfile)
             });
     }
 

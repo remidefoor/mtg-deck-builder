@@ -2,5 +2,5 @@
 
 public record DeckWriteDTO
 {
-    public string?s Name { get; init; }
+    public string? Name { get; init; }
 }
