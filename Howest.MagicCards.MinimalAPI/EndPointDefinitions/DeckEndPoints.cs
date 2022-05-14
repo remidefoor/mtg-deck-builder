@@ -19,7 +19,8 @@ public class DeckEndPoints : IEndpointDefinition
             .Produces(StatusCodes.Status400BadRequest);
 
         app.MapDelete($"{_urlPrefix}/Decks/{{id:long}}", DeleteDeck)
-            .Produces(StatusCodes.Status204NoContent);
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound);
     }
 
     public void DefineServices(IServiceCollection services)
@@ -29,7 +30,7 @@ public class DeckEndPoints : IEndpointDefinition
         services.AddScoped<IDeckRepository, SqlDeckRepository>();
         services.AddAutoMapper(new System.Type[]
             {
-                typeof(Howest.MagicCards.Shared.Mappings.DecksProfile)
+                typeof(Shared.Mappings.DecksProfile)
             });
     }
 
