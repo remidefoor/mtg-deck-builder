@@ -1,20 +1,31 @@
-﻿namespace Howest.MagicCards.MinimalAPI.EndPointDefinitions;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Howest.MagicCards.MinimalAPI.EndPointDefinitions;
 
 public class DeckEndPoints : IEndpointDefinition
 {
+    private readonly string _urlPrefix;
+
+    public DeckEndPoints()
+    {
+        _urlPrefix = Configuration.GetAppSetting("UrlPrefix");
+    }
+
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost("Decks", PostDeck)
+        app.MapPost($"{_urlPrefix}/Decks", PostDeck)
             .Accepts<DeckWriteDTO>("application/json")
             .Produces(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
 
-        app.MapDelete("Decks/{id:long}", DeleteDeck)
+        app.MapDelete($"{_urlPrefix}/Decks/{{id:long}}", DeleteDeck)
             .Produces(StatusCodes.Status204NoContent);
     }
 
     public void DefineServices(IServiceCollection services)
     {
+        services.AddDbContext<mtg_v1Context>(options =>
+            options.UseSqlServer(Configuration.GetAppSetting("ConnectionStrings:MgtV1Db")));
         services.AddScoped<IDeckRepository, SqlDeckRepository>();
         services.AddAutoMapper(new System.Type[]
             {
