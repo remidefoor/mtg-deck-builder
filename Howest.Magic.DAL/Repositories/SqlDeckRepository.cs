@@ -5,20 +5,21 @@ public class SqlDeckRepository : IDeckRepository
 {
     private readonly mtg_v1Context _db;
 
-    public SqlDeckRepository(mtg_v1Context mtg_V1DBContext)
+    public SqlDeckRepository(mtg_v1Context mtg_V1DbContext)
     {
-        _db = mtg_V1DBContext;
+        _db = mtg_V1DbContext;
     }
 
     public async Task<Deck?> ReadDeckAsync(long id)
     {
         return await _db.Decks
-            .SingleOrDefaultAsync(d => d.Id == id);
+            .SingleOrDefaultAsync(deck => deck.Id == id);
     }
 
     public async Task<Deck?> CreateDeckAsync(Deck deck)
     {
-        await _db.Decks.AddAsync(deck);
+        await _db.Decks
+            .AddAsync(deck);
         await SaveAsync();
 
         return await ReadDeckAsync(deck.Id);
@@ -30,7 +31,8 @@ public class SqlDeckRepository : IDeckRepository
 
         if (foundDeck is Deck)
         {
-            _db.Decks.Remove(deck);
+            _db.Decks
+                .Remove(deck);
             await SaveAsync();
         }
 
