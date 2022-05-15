@@ -17,6 +17,9 @@ public partial class Index
     public IHttpClientFactory? HttpClientFactory { get; init; }
 
     [Inject]
+    public IMapper Mapper { get; set; }
+
+    [Inject]
     public ProtectedLocalStorage Storage { get; init; }
     #endregion
 
@@ -75,18 +78,13 @@ public partial class Index
     {
         if (!DeckIsFull())
         {
-            DeckCardReadDetailDTO deckCard = GetDeckCard(card.Id);
+            DeckCardReadDetailDTO? deckCard = GetDeckCard(card.Id);
             if (deckCard is DeckCardReadDetailDTO)
             {
                 deckCard.Amount++;
             } else
             {
-                _deckCards.Add(new DeckCardReadDetailDTO()
-                {
-                    CardId = card.Id,
-                    Name = card.Name,
-                    Amount = 1
-                });
+                _deckCards.Add(Mapper.Map<DeckCardReadDetailDTO>(card));
             }
 
             SetDeckInLocalStorage();

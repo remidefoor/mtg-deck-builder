@@ -3,5 +3,5 @@
 public record DeckCardReadDTO
 {
     public long CardId { get; init; }
-    public int Amount { get; init; }
+    public int Amount { get; init; } = 1;
 }
