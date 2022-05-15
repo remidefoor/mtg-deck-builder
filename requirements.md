@@ -20,7 +20,7 @@
 
 # Web API
 
-- get cards
+- ~~get cards~~
 
 # Web Application
 
@@ -40,17 +40,17 @@
   - [x] text
 - [x] sorting
   - [x] card name
-- [ ] card click > add
+- [x] card click > add
 
 ## deck
 
-- [ ] card click > remove
+- [x] card click > remove
 
-- [ ] limit = 60
+- [x] limit = 60
 
 - [ ] local storage
 
-- [ ] post deck
+- [x] post deck
 
 - [ ] delete deck
 
