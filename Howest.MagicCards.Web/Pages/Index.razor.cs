@@ -17,9 +17,6 @@ public partial class Index
     public IHttpClientFactory? HttpClientFactory { get; init; }
 
     [Inject]
-    public IMapper Mapper { get; set; }
-
-    [Inject]
     public ProtectedLocalStorage Storage { get; init; }
     #endregion
 
@@ -27,14 +24,14 @@ public partial class Index
     {
         _jsonOptions = new JsonSerializerOptions()
         {
-            PropertyNameCaseInsensitive = true,
+            PropertyNameCaseInsensitive = true
         };
     }
 
     protected override async Task OnInitializedAsync()
     {
         _filter = new FilterViewModel();
-        _httpClient = HttpClientFactory.CreateClient("CardAPI");
+        _httpClient = HttpClientFactory.CreateClient("WebApi");
         await GetCards();
         _deck = new List<DeckCardReadDetailDTO>();
     }
@@ -43,9 +40,9 @@ public partial class Index
     {
         string queryString = _filter.GetQueryString();
         HttpResponseMessage response = await _httpClient.GetAsync($"Cards{queryString}");
-        string apiResponse = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
+            string apiResponse = await response.Content.ReadAsStringAsync();
             _cards = JsonSerializer.Deserialize<IEnumerable<CardReadDTO>>(apiResponse, _jsonOptions);
         } else
         {
@@ -99,8 +96,12 @@ public partial class Index
     private bool DeckIsFull()
     {
         int deckSize = int.Parse(Configuration.GetAppSetting("DeckSize"));
-        int deckCardAmount = _deck.Sum(deckCard => deckCard.Amount);
-        return deckCardAmount == deckSize;
+        return GetDeckCount() == deckSize;
+    }
+
+    private int GetDeckCount()
+    {
+        return _deck.Sum(deckCard => deckCard.Amount);
     }
 
     private DeckCardReadDetailDTO? GetDeckCard(long cardId)

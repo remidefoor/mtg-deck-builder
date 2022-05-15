@@ -1,14 +1,33 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Net;
+using System.Text;
+using System.Text.Json;
 
 namespace Howest.MagicCards.Web.Common;
 
 public partial class DeckOverview
 {
+    private readonly JsonSerializerOptions _jsonOptions;
+    private HttpClient _httpClient;
+
     [Parameter]
     public IList<DeckCardReadDetailDTO> Deck { get; init; }
 
     [Inject]
-    public IMapper Mapper { get; set; }
+    public IHttpClientFactory? HttpClientFactory { get; set; }
+
+    public DeckOverview()
+    {
+        _jsonOptions = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("MinimalApi");
+    }
 
     private void RemoveCardFromDeck(DeckCardReadDetailDTO deckCard)
     {
@@ -19,5 +38,39 @@ public partial class DeckOverview
         {
             Deck.Remove(deckCard);
         }
+    }
+
+    private void SaveDeck()
+    {
+        int deckSize = int.Parse(Configuration.GetAppSetting("DeckSize"));
+        if (GetDeckCount() == deckSize)
+        {
+
+        }
+    }
+
+    private int GetDeckCount()
+    {
+        return Deck.Sum(deckCard => deckCard.Amount);
+    }
+
+    public async Task<DeckReadDetailDTO?> PostDeck(DeckWriteDTO deck)
+    {
+        HttpContent body = new StringContent(JsonSerializer.Serialize(deck), Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await _httpClient.PostAsync("Decks", body);
+        if (response.StatusCode == HttpStatusCode.Created)
+        {
+            string apiResponse  = await response.Content.ReadAsStringAsync();
+            DeckReadDetailDTO createdDeck = JsonSerializer.Deserialize<DeckReadDetailDTO>(apiResponse, _jsonOptions);
+            return createdDeck;
+        } else
+        {
+            return default;
+        }
+    }
+
+    private void PostDeckCard()
+    {
+
     }
 }

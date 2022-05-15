@@ -4,41 +4,41 @@
 
 <h1>Magic: The Gathering Deck Builder</h1>
 
-<section>
+<section> <!-- needs access to cards -->
     <EditForm class="row" Model="@_filter" OnValidSubmit="@GetCards">
         <DataAnnotationsValidator />
 
-        <div class="col-1 form-group">
+        <div class="col-2 form-group">
             <label for="name">Name</label>
             <InputText id="Name" class="form-control" @bind-Value="@_filter.Name" />
             <ValidationMessage For="@(() => _filter.Name)" />
         </div>
 
-        <div class="col-1 form-group">
+        <div class="col-2 form-group">
             <label for="text">Text</label>
             <InputText id="text" class="form-control" @bind-Value="@_filter.Text" />
             <ValidationMessage For="@(() => _filter.Text)" />     
         </div>
 
-        <div class="col-1 form-group">
+        <div class="col-2 form-group">
             <label for="set">Set</label>
             <InputText id="set" class="form-control" @bind-Value="@_filter.Set" />
             <ValidationMessage For="@(() => _filter.Set)" />
         </div>
 
-        <div class="col-1 form-group">
+        <div class="col-2 form-group">
             <label for="rarity">Rarity</label>
             <InputText id="rarity" class="form-control" @bind-Value="@_filter.Rarity" />
             <ValidationMessage For="@(() => _filter.Rarity)" />
         </div>
 
-        <div class="col-1 form-group">
+        <div class="col-2 form-group">
             <label for="artist">Artist</label>
             <InputText id="artist" class="form-control" @bind-Value="@_filter.Artist" />
             <ValidationMessage For="@(() => _filter.Artist)" />
         </div>
 
-        <div class="col-1 form-group">
+        <div class="col-2 form-group">
             <label for="sort">Sort</label>
             <InputSelect id="sort" class="form-control" @bind-Value="@_filter.Sort">
                 <option value="None" selected="selected">None</option>
@@ -47,12 +47,12 @@
             </InputSelect>
         </div>
 
-        <input type="submit" id="button-filter" class="col-1 btn btn-primary" value="Filter" />
+        <input type="submit" id="button-filter" class="btn btn-primary mt-3" value="Filter" />
     </EditForm>
 </section>
 
 <div class="row">
-    <section class="col-6">
+    <section class="col-6"> <!-- needs access to deck -->
         <h3>Cards</h3>
 
         @if (_cards != null)

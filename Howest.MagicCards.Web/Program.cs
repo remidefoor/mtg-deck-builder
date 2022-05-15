@@ -13,9 +13,13 @@ builder.Services.AddAutoMapper(new System.Type[]
     }
 );
 
-builder.Services.AddHttpClient("CardAPI", client =>
+builder.Services.AddHttpClient("WebApi", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7103/api/");
+});
+builder.Services.AddHttpClient("MinimalApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7061/api/");
 });
 
 var app = builder.Build();
