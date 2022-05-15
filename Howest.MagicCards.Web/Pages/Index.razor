@@ -22,19 +22,27 @@
 
         <div class="col-2 form-group">
             <label for="set">Set</label>
-            <InputText id="set" class="form-control" @bind-Value="@_filter.Set" />
+            <InputText id="set" class="form-control" @bind-Value="@_filter.Set" /> <!-- no select because to many options -->
             <ValidationMessage For="@(() => _filter.Set)" />
         </div>
 
         <div class="col-2 form-group">
             <label for="rarity">Rarity</label>
-            <InputText id="rarity" class="form-control" @bind-Value="@_filter.Rarity" />
-            <ValidationMessage For="@(() => _filter.Rarity)" />
+            <InputSelect id="rarity" class="form-control" @bind-Value="@_filter.Rarity">
+                <option value="All" selected="selected">All</option>
+                @if (_rarities != null)
+                {
+                    @foreach (RarityReadDTO rarity in _rarities)
+                {
+                    <option value="@rarity.Code">@rarity.Name</option>
+                }
+                }
+            </InputSelect>
         </div>
 
         <div class="col-2 form-group">
             <label for="artist">Artist</label>
-            <InputText id="artist" class="form-control" @bind-Value="@_filter.Artist" />
+            <InputText id="artist" class="form-control" @bind-Value="@_filter.Artist" /> <!-- no select because to many options -->
             <ValidationMessage For="@(() => _filter.Artist)" />
         </div>
 

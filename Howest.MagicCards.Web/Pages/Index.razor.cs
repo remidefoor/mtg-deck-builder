@@ -9,6 +9,7 @@ public partial class Index
     private FilterViewModel _filter;
     private readonly JsonSerializerOptions _jsonOptions;
     private HttpClient _httpClient;
+    private IEnumerable<RarityReadDTO> _rarities;
     private IEnumerable<CardReadDTO>? _cards = null;
     private IList<DeckCardReadDetailDTO>? _deckCards = null;
 
@@ -35,8 +36,23 @@ public partial class Index
     {
         _filter = new FilterViewModel();
         _httpClient = HttpClientFactory.CreateClient("WebApi");
+        await GetRarities();
         await GetCards();
         _deckCards = new List<DeckCardReadDetailDTO>();
+    }
+
+    private async Task GetRarities()
+    {
+        HttpResponseMessage response = await _httpClient.GetAsync("Rarities");
+        if (response.IsSuccessStatusCode)
+        {
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            IEnumerable<RarityReadDTO>? rarities = JsonSerializer.Deserialize<IEnumerable<RarityReadDTO>>(apiResponse, _jsonOptions);
+            _rarities = rarities;
+        } else
+        {
+            _rarities = new List<RarityReadDTO>();
+        }
     }
 
     private async Task GetCards()
@@ -74,7 +90,7 @@ public partial class Index
         }
     }
 
-    private void AddCardToDeck(CardReadDTO card)
+    private async Task AddCardToDeck(CardReadDTO card)
     {
         if (!DeckIsFull())
         {
@@ -87,7 +103,7 @@ public partial class Index
                 _deckCards.Add(Mapper.Map<DeckCardReadDetailDTO>(card));
             }
 
-            SetDeckInLocalStorage();
+            await SetDeckInLocalStorage();
         }
     }
 
@@ -107,8 +123,8 @@ public partial class Index
         return _deckCards.SingleOrDefault(deckCard => deckCard.CardId == cardId);
     }
 
-    private void SetDeckInLocalStorage()
+    private async Task SetDeckInLocalStorage()
     {
-        _ = Storage.SetAsync("deck", _deckCards);
+        await Storage.SetAsync("deck", _deckCards);
     }
 }
