@@ -2,5 +2,5 @@
 
 public class SortFilter
 {
-    public string Sort { get; init; } = "None"; // TODO move to appsettings
+    public string Sort { get; init; } = "None";
 }

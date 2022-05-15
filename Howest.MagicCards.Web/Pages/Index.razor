@@ -28,8 +28,8 @@
 
         <div class="col-2 form-group">
             <label for="rarity">Rarity</label>
-            <InputSelect id="rarity" class="form-control" @bind-Value="@_filter.Rarity">
-                <option value="All" selected="selected">All</option>
+            <InputSelect id="rarity" class="form-control" @bind-Value="@_filter.RarityCode">
+                <option value="@_defaultFilter" selected="selected">@_defaultFilter</option>
                 @if (_rarities != null)
                 {
                     @foreach (RarityReadDTO rarity in _rarities)
@@ -49,7 +49,7 @@
         <div class="col-2 form-group">
             <label for="sort">Sort</label>
             <InputSelect id="sort" class="form-control" @bind-Value="@_filter.Sort">
-                <option value="None" selected="selected">None</option>
+                <option value="@_defaultSort" selected="selected">@_defaultSort</option>
                 <option value="Asc">Ascending</option>
                 <option value="Desc">Descending</option>
             </InputSelect>
