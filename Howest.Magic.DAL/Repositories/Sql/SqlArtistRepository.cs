@@ -4,9 +4,9 @@ public class SqlArtistRepository : IArtistRepository
 {
     private readonly mtg_v1Context _db;
 
-    public SqlArtistRepository(mtg_v1Context mtg_V1DbContext)
+    public SqlArtistRepository(mtg_v1Context mtg_v1DbContext)
     {
-        _db = mtg_V1DbContext;
+        _db = mtg_v1DbContext;
     }
 
     public IQueryable<Artist> ReadArtists()

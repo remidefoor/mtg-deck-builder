@@ -4,9 +4,9 @@ public class SqlDeckCardRepository : IDeckCardRepository
 {
     private readonly mtg_v1Context _db;
 
-    public SqlDeckCardRepository(mtg_v1Context mtg_V1DbContext)
+    public SqlDeckCardRepository(mtg_v1Context mtg_v1DbContext)
     {
-        _db = mtg_V1DbContext;
+        _db = mtg_v1DbContext;
     }
 
     public async Task<DeckCard?> ReadDeckCardAsync(long deckId, long cardId)
