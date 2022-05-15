@@ -1,15 +1,15 @@
 ﻿<section class="col-6">
     <h3>Deck</h3>
 
-    @if (Deck != null)
+    @if (DeckCards != null)
     {
         <ul>
-            @foreach (DeckCardReadDetailDTO deckCard in Deck)
+            @foreach (DeckCardReadDetailDTO deckCard in DeckCards)
             {
                 <li @onclick="@(() => RemoveCardFromDeck(deckCard))">@deckCard.Name: @deckCard.Amount</li>
             }
         </ul>
     }
 
-    <input type="submit" id="button-save" class="btn btn-primary" value="Save" @onclick="@(() => PostDeckCard(8, new DeckCardWriteDTO() { CardId = 1, Amount = 1}))" />
+    <input type="submit" id="button-save" class="btn btn-primary" value="Save" @onclick="@(() => SaveDeck())" />
 </section>

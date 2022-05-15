@@ -10,7 +10,7 @@ public partial class Index
     private readonly JsonSerializerOptions _jsonOptions;
     private HttpClient _httpClient;
     private IEnumerable<CardReadDTO>? _cards = null;
-    private IList<DeckCardReadDetailDTO>? _deck = null;
+    private IList<DeckCardReadDetailDTO>? _deckCards = null;
 
     #region Services
     [Inject]
@@ -33,7 +33,7 @@ public partial class Index
         _filter = new FilterViewModel();
         _httpClient = HttpClientFactory.CreateClient("WebApi");
         await GetCards();
-        _deck = new List<DeckCardReadDetailDTO>();
+        _deckCards = new List<DeckCardReadDetailDTO>();
     }
 
     private async Task GetCards()
@@ -81,7 +81,7 @@ public partial class Index
                 deckCard.Amount++;
             } else
             {
-                _deck.Add(new DeckCardReadDetailDTO()
+                _deckCards.Add(new DeckCardReadDetailDTO()
                 {
                     CardId = card.Id,
                     Name = card.Name,
@@ -101,16 +101,16 @@ public partial class Index
 
     private int GetDeckCount()
     {
-        return _deck.Sum(deckCard => deckCard.Amount);
+        return _deckCards.Sum(deckCard => deckCard.Amount);
     }
 
     private DeckCardReadDetailDTO? GetDeckCard(long cardId)
     {
-        return _deck.SingleOrDefault(deckCard => deckCard.CardId == cardId);
+        return _deckCards.SingleOrDefault(deckCard => deckCard.CardId == cardId);
     }
 
     private void SetDeckInLocalStorage()
     {
-        _ = Storage.SetAsync("deck", _deck);
+        _ = Storage.SetAsync("deck", _deckCards);
     }
 }

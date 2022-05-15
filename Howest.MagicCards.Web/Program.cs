@@ -9,7 +9,7 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddAutoMapper(new System.Type[]
     {
-        typeof(Howest.MagicCards.Shared.Mappings.CardsProfile)
+        typeof(Howest.MagicCards.Shared.Mappings.DeckCardsProfile)
     }
 );
 

@@ -9,5 +9,6 @@ public class DeckCardsProfile : Profile
             .ForMember(dto => dto.Name,
                 opt => opt.MapFrom(deckCard => deckCard.Card.Name));
         CreateMap<DeckCardWriteDTO, DeckCard>();
+        CreateMap<DeckCardReadDetailDTO, DeckCardWriteDTO>();
     }
 }

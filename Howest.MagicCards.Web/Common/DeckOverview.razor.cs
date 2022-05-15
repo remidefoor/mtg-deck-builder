@@ -11,10 +11,15 @@ public partial class DeckOverview
     private HttpClient _httpClient;
 
     [Parameter]
-    public IList<DeckCardReadDetailDTO> Deck { get; init; }
+    public IList<DeckCardReadDetailDTO> DeckCards { get; init; }
 
+    #region Services
     [Inject]
     public IHttpClientFactory? HttpClientFactory { get; set; }
+
+    [Inject]
+    public IMapper Mapper { get; set; }
+    #endregion
 
     public DeckOverview()
     {
@@ -36,22 +41,25 @@ public partial class DeckOverview
             deckCard.Amount--;
         } else
         {
-            Deck.Remove(deckCard);
+            DeckCards.Remove(deckCard);
         }
     }
 
-    private void SaveDeck()
+    public async Task SaveDeck()
     {
         int deckSize = int.Parse(Configuration.GetAppSetting("DeckSize"));
         if (GetDeckCount() == deckSize)
         {
-
+            if (await PostDeck(new DeckWriteDTO()) is DeckReadDetailDTO createdDeck)
+            {
+                await PostDeckCards(createdDeck.Id);
+            }
         }
     }
 
     private int GetDeckCount()
     {
-        return Deck.Sum(deckCard => deckCard.Amount);
+        return DeckCards.Sum(deckCard => deckCard.Amount);
     }
 
     private async Task<DeckReadDetailDTO?> PostDeck(DeckWriteDTO deck)
@@ -69,7 +77,20 @@ public partial class DeckOverview
         }
     }
 
-    public async Task<DeckCardReadDTO?> PostDeckCard(long deckId, DeckCardWriteDTO deckCard)
+    private async Task PostDeckCards(long deckId)
+    {
+        foreach (DeckCardReadDetailDTO deckCard in DeckCards)
+        {
+            DeckCardReadDTO? createdDeckCard = await PostDeckCard(deckId, Mapper.Map<DeckCardWriteDTO>(deckCard));
+            if (!(createdDeckCard is DeckCardReadDTO))
+            {
+                return;
+            }
+        }
+        ClearDeckCards();
+    }
+
+    private async Task<DeckCardReadDTO?> PostDeckCard(long deckId, DeckCardWriteDTO deckCard)
     {
         HttpContent body = new StringContent(JsonSerializer.Serialize(deckCard), Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _httpClient.PostAsync($"Decks/{deckId}/DeckCards", body);
@@ -82,5 +103,10 @@ public partial class DeckOverview
         {
             return default;
         }
+    }
+
+    private void ClearDeckCards()
+    {
+        DeckCards.Clear();
     }
 }
