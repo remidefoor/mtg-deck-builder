@@ -1,6 +1,9 @@
-﻿namespace Howest.MagicCards.Shared.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Howest.MagicCards.Shared.DTOs;
 
 public record DeckWriteDTO
 {
-    public string? Name { get; init; }
+    [Required(ErrorMessage = "Please provide a name for the deck")]
+    public string? Name { get; set; }
 }

@@ -7,6 +7,7 @@ namespace Howest.MagicCards.Web.Common;
 
 public partial class DeckOverview
 {
+    private DeckWriteDTO _deck;
     private readonly JsonSerializerOptions _jsonOptions;
     private HttpClient _httpClient;
 
@@ -31,6 +32,7 @@ public partial class DeckOverview
 
     protected override async Task OnInitializedAsync()
     {
+        _deck = new DeckWriteDTO();
         _httpClient = HttpClientFactory.CreateClient("MinimalApi");
     }
 
@@ -50,7 +52,7 @@ public partial class DeckOverview
         int deckSize = int.Parse(Configuration.GetAppSetting("DeckSize"));
         if (GetDeckCount() == deckSize)
         {
-            if (await PostDeck(new DeckWriteDTO()) is DeckReadDetailDTO createdDeck)
+            if (await PostDeck(_deck) is DeckReadDetailDTO createdDeck)
             {
                 await PostDeckCards(createdDeck.Id);
             }

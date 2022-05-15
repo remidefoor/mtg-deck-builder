@@ -11,5 +11,15 @@
         </ul>
     }
 
-    <input type="submit" id="button-save" class="btn btn-primary" value="Save" @onclick="@(() => SaveDeck())" />
+    <EditForm Model="@_deck" OnValidSubmit="@SaveDeck">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <lavel for="deck-name">Deck name:</lavel>
+            <InputText id="deck-name" class="form-control" @bind-Value="@_deck.Name"></InputText>
+            <ValidationMessage For="@(() => _deck.Name)" />
+        </div>
+
+        <input type="submit" id="button-save" class="btn btn-primary mt-3" value="Save" />
+    </EditForm>
 </section>
