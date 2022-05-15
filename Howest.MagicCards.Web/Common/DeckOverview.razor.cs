@@ -7,6 +7,7 @@ namespace Howest.MagicCards.Web.Common;
 
 public partial class DeckOverview
 {
+    private string _message = string.Empty;
     private DeckWriteDTO _deck;
     private readonly JsonSerializerOptions _jsonOptions;
     private HttpClient _httpClient;
@@ -55,7 +56,15 @@ public partial class DeckOverview
             if (await PostDeck(_deck) is DeckReadDetailDTO createdDeck)
             {
                 await PostDeckCards(createdDeck.Id);
+                if (DeckCards.Count > 0)
+                {
+                    SetMessage("Error: Failed to save the deck, please try again");
+                }
             }
+        } else
+        {
+            Console.WriteLine("error set");
+            SetMessage($"Error: A deck must contain {deckSize} cards");
         }
     }
 
@@ -110,5 +119,11 @@ public partial class DeckOverview
     private void ClearDeckCards()
     {
         DeckCards.Clear();
+        SetMessage("The deck was successfully saved");
+    }
+
+    private void SetMessage(string message)
+    {
+        _message = message;
     }
 }
