@@ -54,7 +54,7 @@ public partial class DeckOverview
         return Deck.Sum(deckCard => deckCard.Amount);
     }
 
-    public async Task<DeckReadDetailDTO?> PostDeck(DeckWriteDTO deck)
+    private async Task<DeckReadDetailDTO?> PostDeck(DeckWriteDTO deck)
     {
         HttpContent body = new StringContent(JsonSerializer.Serialize(deck), Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _httpClient.PostAsync("Decks", body);
@@ -69,8 +69,18 @@ public partial class DeckOverview
         }
     }
 
-    private void PostDeckCard()
+    public async Task<DeckCardReadDTO?> PostDeckCard(long deckId, DeckCardWriteDTO deckCard)
     {
-
+        HttpContent body = new StringContent(JsonSerializer.Serialize(deckCard), Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await _httpClient.PostAsync($"Decks/{deckId}/DeckCards", body);
+        if (response.StatusCode == HttpStatusCode.Created)
+        {
+            string apiResponse = await response.Content?.ReadAsStringAsync();
+            DeckCardReadDTO createdDeckCard = JsonSerializer.Deserialize<DeckCardReadDTO>(apiResponse, _jsonOptions);
+            return createdDeckCard;
+        } else
+        {
+            return default;
+        }
     }
 }

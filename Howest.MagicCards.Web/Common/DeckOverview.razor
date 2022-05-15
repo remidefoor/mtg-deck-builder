@@ -11,5 +11,5 @@
         </ul>
     }
 
-    <input type="submit" id="button-save" class="btn btn-primary" value="Save" @onclick="@(() => PostDeck(new DeckWriteDTO() { Name = "deck" }))" />
+    <input type="submit" id="button-save" class="btn btn-primary" value="Save" @onclick="@(() => PostDeckCard(8, new DeckCardWriteDTO() { CardId = 1, Amount = 1}))" />
 </section>
