@@ -5,7 +5,7 @@ public class SqlDeckRepository : IDeckRepository
 {
     private readonly mtg_v1Context _db;
 
-    public SqlDeckRepository(mtg_v1Context mtg_vs1DbContext)
+    public SqlDeckRepository(mtg_v1Context mtg_v1DbContext)
     {
         _db = mtg_v1DbContext;
     }
