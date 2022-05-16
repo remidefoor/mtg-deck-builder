@@ -4,6 +4,10 @@
 
 <h1>Magic: The Gathering Deck Builder</h1>
 
+<NavLink class="nav-link" href="deck-manager">
+  <span class="oi" aria-hidden="true">Deck Manager</span>
+</NavLink>
+
 <section> <!-- needs access to cards -->
     <EditForm class="row" Model="@_filter" OnValidSubmit="@GetCards">
         <DataAnnotationsValidator />
@@ -61,7 +65,7 @@
 
 <div class="row">
     <section class="col-6"> <!-- needs access to deck -->
-        <h3>Cards</h3>
+        <h2>Cards</h2>
 
         @if (_cards != null)
         {
