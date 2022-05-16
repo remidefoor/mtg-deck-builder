@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<mtg_v1Context>(options =>
     options.UseSqlServer(config.GetConnectionString("MgtV1Db")));
 builder.Services.AddScoped<ICardRepository, SqlCardRepository>();
+builder.Services.AddScoped<IRarityRepository, SqlRarityRepository>();
 
 builder.Services.AddAutoMapper(new System.Type[]
     {

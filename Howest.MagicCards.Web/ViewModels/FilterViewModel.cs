@@ -1,16 +1,19 @@
 ﻿using System.Reflection;
 using System.Text;
 
-namespace Howest.MagicCards.Shared.ViewModels;
+namespace Howest.MagicCards.Web.ViewModels;
 
 public class FilterViewModel
 {
-    public string Name { get; set; } = "All"; // TODO move to appsettings
-    public string Text { get; set; } = "All"; // TODO move to appsettings
-    public string Set { get; set; } = "All"; // TODO move to appsettings
-    public string Rarity { get; set; } = "All"; // TODO move to appsettings
-    public string Artist { get; set; } = "All"; // TODO move to appsettings
-    public string Sort { get; set; } = "None"; // TODO move to appsettings
+    const string defaultFilter = "All"; // TODO move to appsettings
+    const string defaultSort = "None"; // TODO move to appsettings
+
+    public string Name { get; set; } = defaultFilter;
+    public string Text { get; set; } = defaultFilter;
+    public string Set { get; set; } = defaultFilter;
+    public string RarityCode { get; set; } = defaultFilter;
+    public string Artist { get; set; } = defaultFilter;
+    public string Sort { get; set; } = defaultSort;
 
     public string GetQueryString()
     {

@@ -4,49 +4,73 @@
 
 <h1>Magic: The Gathering Deck Builder</h1>
 
-<EditForm Model="@_filter" OnValidSubmit="@GetCards">
-    <DataAnnotationsValidator />
+<section> <!-- needs access to cards -->
+    <EditForm class="row" Model="@_filter" OnValidSubmit="@GetCards">
+        <DataAnnotationsValidator />
 
-    <div class="form-group">
-        <label for="name">Name</label>
-        <InputText id="Name" class="form-control" @bind-Value="@_filter.Name" />
-        <ValidationMessage For="@(() => _filter.Name)" />
-    </div>
+        <div class="col-2 form-group">
+            <label for="name">Name</label>
+            <InputText id="Name" class="form-control" @bind-Value="@_filter.Name" />
+            <ValidationMessage For="@(() => _filter.Name)" />
+        </div>
 
-    <div class="form-group">
-        <label for="text">Text</label>
-        <InputText id="text" class="form-control" @bind-Value="@_filter.Text" />
-        <ValidationMessage For="@(() => _filter.Text)" />     
-    </div>
+        <div class="col-2 form-group">
+            <label for="text">Text</label>
+            <InputText id="text" class="form-control" @bind-Value="@_filter.Text" />
+            <ValidationMessage For="@(() => _filter.Text)" />     
+        </div>
 
-    <div class="form-group">
-        <label for="set">Set</label>
-        <InputText id="set" class="form-control" @bind-Value="@_filter.Set" />
-        <ValidationMessage For="@(() => _filter.Set)" />
-    </div>
+        <div class="col-2 form-group">
+            <label for="set">Set</label>
+            <InputText id="set" class="form-control" @bind-Value="@_filter.Set" /> <!-- no select because to many options -->
+            <ValidationMessage For="@(() => _filter.Set)" />
+        </div>
 
-    <div class="form-group">
-        <label for="rarity">Rarity</label>
-        <InputText id="rarity" class="form-control" @bind-Value="@_filter.Rarity" />
-        <ValidationMessage For="@(() => _filter.Rarity)" />
-    </div>
+        <div class="col-2 form-group">
+            <label for="rarity">Rarity</label>
+            <InputSelect id="rarity" class="form-control" @bind-Value="@_filter.RarityCode">
+                <option value="@_defaultFilter" selected="selected">@_defaultFilter</option>
+                @if (_rarities != null)
+                {
+                    @foreach (RarityReadDTO rarity in _rarities)
+                {
+                    <option value="@rarity.Code">@rarity.Name</option>
+                }
+                }
+            </InputSelect>
+        </div>
 
-    <div class="form-group">
-        <label for="artist">Artist</label>
-        <InputText id="artist" class="form-control" @bind-Value="@_filter.Artist" />
-        <ValidationMessage For="@(() => _filter.Artist)" />
-    </div>
+        <div class="col-2 form-group">
+            <label for="artist">Artist</label>
+            <InputText id="artist" class="form-control" @bind-Value="@_filter.Artist" /> <!-- no select because to many options -->
+            <ValidationMessage For="@(() => _filter.Artist)" />
+        </div>
 
-    <div class="form-group">
-        <label for="sort">Sort</label>
-        <InputSelect id="sort" class="form-control" @bind-Value="@_filter.Sort">
-            <option value="None" selected="selected">None</option>
-            <option value="Asc">Ascending</option>
-            <option value="Desc">Descending</option>
-        </InputSelect>
-    </div>
+        <div class="col-2 form-group">
+            <label for="sort">Sort</label>
+            <InputSelect id="sort" class="form-control" @bind-Value="@_filter.Sort">
+                <option value="@_defaultSort" selected="selected">@_defaultSort</option>
+                <option value="Asc">Ascending</option>
+                <option value="Desc">Descending</option>
+            </InputSelect>
+        </div>
 
-    <input type="submit" id="button-filter" class="btn btn-primary" value="Filter" />
-</EditForm>
+        <input type="submit" id="button-filter" class="btn btn-primary mt-3" value="Filter" />
+    </EditForm>
+</section>
 
-<CardsOverview Cards="_cards"></CardsOverview>
+<div class="row">
+    <section class="col-6"> <!-- needs access to deck -->
+        <h3>Cards</h3>
+
+        @if (_cards != null)
+        {
+            @foreach (CardReadDTO card in _cards)
+            {
+                <img src="@(card.ImageUrl ?? Configuration.GetAppSetting("DefaultCardUrl"))" alt="@card.Name" @onclick="@(() => AddCardToDeck(card))" />
+            }
+        }
+    </section>
+
+    <DeckOverview DeckCards="_deckCards"></DeckOverview>
+</div>

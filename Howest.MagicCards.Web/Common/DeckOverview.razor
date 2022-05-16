@@ -1,0 +1,27 @@
+﻿<section class="col-6">
+    <h3>Deck</h3>
+
+    @if (DeckCards != null)
+    {
+        <ul>
+            @foreach (DeckCardReadDetailDTO deckCard in DeckCards)
+            {
+                <li @onclick="@(() => RemoveCardFromDeck(deckCard))">@deckCard.Name: @deckCard.Amount</li>
+            }
+        </ul>
+    }
+
+    <EditForm Model="@_deck" OnValidSubmit="@SaveDeck">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <lavel for="deck-name">Deck name:</lavel>
+            <InputText id="deck-name" class="form-control" @bind-Value="@_deck.Name"></InputText>
+            <ValidationMessage For="@(() => _deck.Name)" />
+        </div>
+
+        <input type="submit" id="button-save" class="btn btn-primary mt-3" value="Save" />
+    </EditForm>
+
+    <em class="mt-3">@_message</em>
+</section>

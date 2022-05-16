@@ -2,11 +2,11 @@
 
 namespace Howest.MagicCards.Shared.Extensions;
 
-public static class CardExtension
+public static class CardExtensions
 {
-    private const string defaultFilter = "All"; // TODO move to appsettings
-    private const string ascendingOrder = "Asc"; // TODO move to appsettings
-    private const string descendingOrder = "Desc"; // TODO move to appsettings
+    private const string defaultFilter = "All";
+    private const string ascendingOrder = "Asc";
+    private const string descendingOrder = "Desc";
 
     public static IQueryable<Card> Filter(this IQueryable<Card> cards, CardFilter cardFilter)
     {
@@ -15,7 +15,7 @@ public static class CardExtension
         if (!cardFilter.Name.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Name.Contains(cardFilter.Name));
         if (!cardFilter.Text.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Text.Contains(cardFilter.Text));
         if (!cardFilter.Set.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Set.Name.Contains(cardFilter.Set));
-        if (!cardFilter.Rarity.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Rarity.Name.Contains(cardFilter.Rarity));
+        if (!cardFilter.RarityCode.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.RarityCode == cardFilter.RarityCode);
         if (!cardFilter.Artist.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Artist.FullName.Contains(cardFilter.Artist));
 
         return cards;

@@ -6,9 +6,9 @@ public class SqlCardRepository : ICardRepository
 {
     private readonly mtg_v1Context _db;
 
-    public SqlCardRepository(mtg_v1Context mtg_V1DBContext)
+    public SqlCardRepository(mtg_v1Context mtg_v1DbContext)
     {
-        _db = mtg_V1DBContext;
+        _db = mtg_v1DbContext;
     }
 
     public IQueryable<Card> ReadCards()
