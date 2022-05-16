@@ -42,7 +42,6 @@ public partial class Index
         _httpClient = HttpClientFactory.CreateClient("WebApi");
         await GetRarities();
         await GetCards();
-        _deckCards = new List<DeckCardReadDetailDTO>();
     }
 
     private async Task GetRarities()
@@ -73,24 +72,25 @@ public partial class Index
         }
     }
 
-    /* protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            _deck = await GetDeckFromLocalStorage();
+            _deckCards = await GetDeckFromLocalStorage();
+            StateHasChanged();
         }
-    } */
+    }
 
-    private async Task<IList<CardReadDTO>> GetDeckFromLocalStorage()
+    private async Task<IList<DeckCardReadDetailDTO>> GetDeckFromLocalStorage()
     {
-        ProtectedBrowserStorageResult<IList<CardReadDTO>> deck = await Storage.GetAsync<IList<CardReadDTO>>("deck");
-        if (deck.Success)
+        ProtectedBrowserStorageResult<IList<DeckCardReadDetailDTO>> deckCards = await Storage.GetAsync<IList<DeckCardReadDetailDTO>>("deck");
+        if (deckCards.Success)
         {
-            return deck.Value;
+            return deckCards.Value;
         }
         else
         {
-            return new List<CardReadDTO>();
+            return new List<DeckCardReadDetailDTO>();
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -21,6 +22,10 @@ public partial class DeckOverview
 
     [Inject]
     public IMapper Mapper { get; set; }
+
+    [Inject]
+
+    public ProtectedLocalStorage Storage { get; init; }
     #endregion
 
     public DeckOverview()
@@ -37,7 +42,7 @@ public partial class DeckOverview
         _httpClient = HttpClientFactory.CreateClient("MinimalApi");
     }
 
-    private void RemoveCardFromDeck(DeckCardReadDetailDTO deckCard)
+    private async Task RemoveCardFromDeck(DeckCardReadDetailDTO deckCard)
     {
         if (deckCard.Amount > 1)
         {
@@ -46,6 +51,12 @@ public partial class DeckOverview
         {
             DeckCards.Remove(deckCard);
         }
+        await SetDeckInLocalStorage();
+    }
+
+    private async Task SetDeckInLocalStorage()
+    {
+        await Storage.SetAsync("deck", DeckCards);
     }
 
     public async Task SaveDeck()
@@ -98,7 +109,8 @@ public partial class DeckOverview
                 return;
             }
         }
-        ClearDeckCards();
+        SetMessage("The deck was successfully saved");
+        await ClearDeckCards();
     }
 
     private async Task<DeckCardReadDTO?> PostDeckCard(long deckId, DeckCardWriteDTO deckCard)
@@ -116,10 +128,10 @@ public partial class DeckOverview
         }
     }
 
-    private void ClearDeckCards()
+    private async Task ClearDeckCards()
     {
         DeckCards.Clear();
-        SetMessage("The deck was successfully saved");
+        await SetDeckInLocalStorage();
     }
 
     private void SetMessage(string message)
