@@ -18,6 +18,7 @@ namespace Howest.MagicCards.WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<RarityReadDTO>), 200)]
         public async Task<ActionResult<IEnumerable<RarityReadDTO>>> GetRarities()
         {
             return (_rarityRepository.ReadRarities() is IQueryable<Rarity> rarities)

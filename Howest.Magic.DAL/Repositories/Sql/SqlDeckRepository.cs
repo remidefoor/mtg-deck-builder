@@ -10,6 +10,12 @@ public class SqlDeckRepository : IDeckRepository
         _db = mtg_v1DbContext;
     }
 
+    public IQueryable<Deck> ReadDecks()
+    {
+        return _db.Decks
+            .Select(deck => deck);
+    }
+
     public async Task<Deck?> ReadDeckAsync(long id)
     {
         return await _db.Decks
