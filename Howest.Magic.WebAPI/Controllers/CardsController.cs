@@ -1,5 +1,6 @@
 ﻿using Howest.MagicCards.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Howest.MagicCards.WebAPI.Controllers
@@ -22,20 +23,37 @@ namespace Howest.MagicCards.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<CardReadDTO>), 200)]
-        public ActionResult<IEnumerable<CardReadDTO>> GetCards([FromQuery] CardFilter cardFilter, [FromQuery] SortFilter sortingFilter)
+        public async Task<ActionResult<IEnumerable<CardReadDTO>>> GetCards([FromQuery] CardFilter cardFilter, [FromQuery] SortFilter sortFilter)
         {
-            try
+            if (!cardFilter.HasFilters() && !sortFilter.HasOrder())
             {
-                IEnumerable<CardReadDTO> cards = _cardRepository.ReadCards()
-                    .Sort(sortingFilter) // first 150 of sorted cards, not 150 sorted cards
+                return Ok(await GetCachedCards());
+            }
+
+            return Ok(await GetFilteredCards(cardFilter, sortFilter));
+        }
+
+        private async Task<IEnumerable<CardReadDTO>> GetCachedCards()
+        {
+            if (!_cache.TryGetValue("defaultCardSet", out IEnumerable<Card> defaultCardSet))
+            {
+                int defaultCardAmount = int.Parse(Configuration.GetAppSetting("DefaultCardAmount"));
+                defaultCardSet = await _cardRepository.ReadCards()
+                    .Take(defaultCardAmount)
+                    .ToListAsync();
+                _cache.Set("defaultCardSet", defaultCardSet);
+            }
+            return _mapper.Map<IEnumerable<CardReadDTO>>(defaultCardSet);
+        }
+
+        private async Task<IEnumerable<CardReadDTO>> GetFilteredCards(CardFilter cardFilter, SortFilter sortFilter)
+        {
+            return (_cardRepository.ReadCards() is IQueryable<Card> cards)
+                ? await cards.Sort(sortFilter) // first 150 of sorted cards, not 150 sorted cards
                     .Filter(cardFilter)
                     .ProjectTo<CardReadDTO>(_mapper.ConfigurationProvider)
-                    .ToList();
-                return Ok(cards);
-            } catch (Exception ex)
-            {
-                return Ok(new List<CardReadDTO>());
-            }
+                    .ToListAsync()
+                : new List<CardReadDTO>();
         }
     }
 }

@@ -13,7 +13,7 @@ public class FilterViewModel
     public string Set { get; set; } = defaultFilter;
     public string RarityCode { get; set; } = defaultFilter;
     public string Artist { get; set; } = defaultFilter;
-    public string Sort { get; set; } = defaultSort;
+    public string Order { get; set; } = defaultSort;
 
     public string GetQueryString()
     {

@@ -4,13 +4,14 @@ namespace Howest.MagicCards.Shared.Extensions;
 
 public static class CardExtensions
 {
-    private const string defaultFilter = "All";
-    private const string ascendingOrder = "Asc";
-    private const string descendingOrder = "Desc";
+    const int defaultCardAmount = 150;
+    const string defaultFilter = "All";
+    const string ascendingOrder = "Asc";
+    const string descendingOrder = "Desc";
 
     public static IQueryable<Card> Filter(this IQueryable<Card> cards, CardFilter cardFilter)
     {
-        if (!cardFilter.HasFilters()) return cards.Take(150);
+        if (!cardFilter.HasFilters()) return cards.Take(defaultCardAmount);
 
         if (!cardFilter.Name.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Name.Contains(cardFilter.Name));
         if (!cardFilter.Text.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Text.Contains(cardFilter.Text));
@@ -23,10 +24,10 @@ public static class CardExtensions
 
     public static IQueryable<Card> Sort(this IQueryable<Card> cards, SortFilter sortingFilter)
     {
-        if (sortingFilter.Sort.Equals(ascendingOrder, StringComparison.OrdinalIgnoreCase))
+        if (sortingFilter.Order.Equals(ascendingOrder, StringComparison.OrdinalIgnoreCase))
         {
             return cards.OrderBy(card => card.Name);
-        } else if (sortingFilter.Sort.Equals(descendingOrder, StringComparison.OrdinalIgnoreCase))
+        } else if (sortingFilter.Order.Equals(descendingOrder, StringComparison.OrdinalIgnoreCase))
         {
             return cards.OrderByDescending(card => card.Name);
         } else
