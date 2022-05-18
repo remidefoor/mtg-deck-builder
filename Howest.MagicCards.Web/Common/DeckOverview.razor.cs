@@ -110,7 +110,7 @@ public partial class DeckOverview
             }
         }
         SetMessage("The deck was successfully saved");
-        await ClearDeckCards();
+        await ClearDeck();
     }
 
     private async Task<DeckCardReadDTO?> PostDeckCard(long deckId, DeckCardWriteDTO deckCard)
@@ -128,8 +128,9 @@ public partial class DeckOverview
         }
     }
 
-    private async Task ClearDeckCards()
+    private async Task ClearDeck()
     {
+        _deck = new DeckWriteDTO();
         DeckCards.Clear();
         await SetDeckInLocalStorage();
     }

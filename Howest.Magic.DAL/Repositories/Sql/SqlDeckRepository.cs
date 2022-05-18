@@ -16,10 +16,10 @@ public class SqlDeckRepository : IDeckRepository
             .Select(deck => deck);
     }
 
-    public async Task<Deck?> ReadDeckAsync(long id)
+    public async Task<Deck?> ReadDeckAsync(long deckId)
     {
         return await _db.Decks
-            .SingleOrDefaultAsync(deck => deck.Id == id);
+            .SingleOrDefaultAsync(deck => deck.Id == deckId);
     }
 
     public async Task<Deck?> CreateDeckAsync(Deck deck)
