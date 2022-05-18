@@ -12,9 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<mtg_v1Context>(options =>
     options.UseSqlServer(config.GetConnectionString("MgtV1Db")));
-builder.Services.AddScoped<IDeckRepository, SqlDeckRepository>();
 builder.Services.AddScoped<ICardRepository, SqlCardRepository>();
 builder.Services.AddScoped<IRarityRepository, SqlRarityRepository>();
+builder.Services.AddScoped<IDeckRepository, SqlDeckRepository>();
+builder.Services.AddScoped<IDeckCardRepository, SqlDeckCardRepository>();
 
 builder.Services.AddAutoMapper(new System.Type[]
     {

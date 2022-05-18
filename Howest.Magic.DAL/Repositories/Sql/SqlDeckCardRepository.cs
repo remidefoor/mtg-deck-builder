@@ -9,6 +9,12 @@ public class SqlDeckCardRepository : IDeckCardRepository
         _db = mtg_v1DbContext;
     }
 
+    public IQueryable<DeckCard> ReadDeckCards(long deckId)
+    {
+        return _db.DeckCards
+            .Where(deckCard => deckCard.DeckId == deckId);
+    }
+
     public async Task<DeckCard?> ReadDeckCardAsync(long deckId, long cardId)
     {
         return await _db.DeckCards

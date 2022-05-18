@@ -24,7 +24,7 @@ namespace Howest.MagicCards.WebAPI.Controllers
             return (_deckRepository.ReadDecks() is IQueryable<Deck> decks)
                 ? Ok(await decks.ProjectTo<DeckReadDetailDTO>(_mapper.ConfigurationProvider)
                     .ToListAsync())
-                : new List<DeckReadDetailDTO>();
+                : Ok(new List<DeckReadDetailDTO>());
         }
     }
 }
