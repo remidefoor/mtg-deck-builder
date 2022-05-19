@@ -25,7 +25,7 @@ public partial class DeckManager
         };
     }
 
-    public async Task SetSelectedDeck(DeckReadDetailDTO deck)
+    private async Task SetSelectedDeck(DeckReadDetailDTO deck)
     {
         _selectedDeck = deck;
         await GetDeckCards();

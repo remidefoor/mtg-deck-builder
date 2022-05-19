@@ -59,7 +59,7 @@ public partial class Deck
         await Storage.SetAsync("deck", DeckCards);
     }
 
-    public async Task SaveDeck()
+    private async Task SaveDeck()
     {
         int deckSize = int.Parse(Configuration.GetAppSetting("DeckSize"));
         if (GetDeckCount() == deckSize)
