@@ -56,21 +56,21 @@
 
 # GraphQL API
 
-- [ ] queries
+- [x] queries
 
-  - [ ] cards
+  - [x] cards
     - [x] ...
     - [x] artist
-    - [ ] filters
-      - [ ] power (optional)
-      - [ ] toughness (optional)
+    - [x] filters
+      - [x] power (optional)
+      - [x] toughness (optional)
 
-  - [ ] artists
+  - [x] artists
     - [x] id
     - [x] full name
     - [x] cards
-    - [ ] filters
-      - [ ] limit (optional)
+    - [x] filters
+      - [x] limit (optional)
 
   - [x] artist
     - [x] ...
@@ -84,10 +84,3 @@
   - [ ] Minimal API
   - [ ] Web API
 - [ ] GraphQL API
-
-
-
-# questions
-
-- Duplicate code Program.cs <=> SwaggerEndPoints.cs.
-- get deck: minimal API || web API?

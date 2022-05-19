@@ -34,9 +34,17 @@ public class RootQuery : ObjectGraphType
         (
             "Artists",
             Description = "Get artists",
+            arguments: new QueryArguments
+            {
+                new QueryArgument<IntGraphType> { Name = "limit", DefaultValue = 150 }
+            },
             resolve: context =>
             {
+                int limit = context.GetArgument<int>("limit");
+                if (limit <= 0 || limit > 150) limit = 150;
+
                 return artistRepository.ReadArtists()
+                    .Take(limit)
                     .ToList();
             }
         );

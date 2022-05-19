@@ -8,3 +8,4 @@ global using Howest.MagicCards.DAL.Repositories;
 
 global using Howest.MagicCards.Shared.Extensions;
 global using Howest.MagicCards.Shared.Filters;
+global using Howest.MagicCards.Shared.Wrappers;
