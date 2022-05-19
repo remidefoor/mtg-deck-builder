@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <lavel for="deck-name">Deck name:</lavel>
-            <InputText id="deck-name" class="form-control" @bind-Value="@_deck.Name"></InputText>
+            <InputText id="deck-name" class="form-control" maxlength="255" @bind-Value="@_deck.Name"></InputText>
             <ValidationMessage For="@(() => _deck.Name)" />
         </div>
 

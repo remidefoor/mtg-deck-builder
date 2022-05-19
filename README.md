@@ -13,8 +13,8 @@
 
 # Minimal API
 
-- post deck
-  - validation
+- ~~post deck~~
+  - ~~validation~~
 
 - ~~delete deck~~
 
