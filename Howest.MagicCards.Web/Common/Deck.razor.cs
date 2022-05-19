@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Howest.MagicCards.Web.Common;
 
-public partial class DeckOverview
+public partial class Deck
 {
     private string _message = string.Empty;
     private DeckWriteDTO _deck;
@@ -28,7 +28,7 @@ public partial class DeckOverview
     public ProtectedLocalStorage Storage { get; init; }
     #endregion
 
-    public DeckOverview()
+    public Deck()
     {
         _jsonOptions = new JsonSerializerOptions()
         {

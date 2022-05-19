@@ -1,0 +1,18 @@
+﻿<section class="col-6">
+    <h2>Deck cards</h2>
+
+    @if (Deck != null)
+    {
+        <h3>@Deck.Name</h3>
+    }
+
+    @if (AllDeckCards != null)
+    {
+        <ul>
+        @foreach (DeckCardReadDetailDTO deckCard in AllDeckCards)
+        {
+            <li>@deckCard.Name: @deckCard.Amount</li>
+        }
+        </ul>
+    }
+</section>

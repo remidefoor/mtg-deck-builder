@@ -8,19 +8,25 @@
   <span class="oi" aria-hidden="true">Deck Builder</span>
 </NavLink>
 
-<section>
-    <h2>Decks</h2>
+<div class="row">
+    <section class="col-6">
+        <h2>Decks</h2>
 
-    @if (_decks != null)
-    {
-        <ul>
-        @foreach (DeckReadDetailDTO deck in _decks)
+        @if (_decks != null)
         {
-            <li>
-                @deck.Name
-                <button class="btn-sm btn-danger ms-5 mb-2" @onclick="@(() => DeleteDeck(deck))">Delete</button>
-            </li>
+            <ul>
+            @foreach (DeckReadDetailDTO deck in _decks)
+            {
+                <li @onclick="@(() => SetSelectedDeck(deck))">
+                    @deck.Name
+                    <button class="btn-sm btn-danger ms-5 mb-2" @onclick="@(() => DeleteDeck(deck))" @onclick:stopPropagation="true">
+                        Delete
+                    </button>
+                </li>
+            }
+        </ul>
         }
-    </ul>
-    }
-</section>
+    </section>
+
+    <DeckCards Deck="_selectedDeck" AllDeckCards="_deckCards"></DeckCards>
+</div>
