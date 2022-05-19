@@ -11,9 +11,21 @@ public class RootQuery : ObjectGraphType
         (
             "Cards",
             Description = "Get cards",
+            arguments: new QueryArguments()
+            {
+                new QueryArgument<StringGraphType> { Name = "Power", DefaultValue = "All" },
+                new QueryArgument<StringGraphType> { Name = "Toughness", DefaultValue = "All" }
+            },
             resolve: context =>
             {
+                CardFilter filter = new CardFilter()
+                {
+                    Power = context.GetArgument<string>("Power"),
+                    Toughness = context.GetArgument<string>("Toughness")
+                };
+
                 return cardRepository.ReadCards()
+                    .Filter(filter)
                     .ToList();
             }
         );

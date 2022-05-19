@@ -18,6 +18,8 @@ public static class CardExtensions
         if (!cardFilter.Set.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Set.Name.Contains(cardFilter.Set));
         if (!cardFilter.RarityCode.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.RarityCode == cardFilter.RarityCode);
         if (!cardFilter.Artist.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Artist.FullName.Contains(cardFilter.Artist));
+        if (!cardFilter.Power.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Power == cardFilter.Power);
+        if (!cardFilter.Toughness.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)) cards = cards.Where(card => card.Toughness == cardFilter.Toughness);
 
         return cards;
     }

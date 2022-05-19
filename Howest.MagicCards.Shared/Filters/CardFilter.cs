@@ -9,6 +9,8 @@ public class CardFilter
     public string Set { get; init; } = defaultFilter;
     public string RarityCode { get; init; } = defaultFilter;
     public string Artist { get; init; } = defaultFilter;
+    public string Power { get; init; } = defaultFilter;
+    public string Toughness { get; init; } = defaultFilter;
 
     public bool HasFilters()
     {
@@ -16,6 +18,8 @@ public class CardFilter
             || !Text.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
             || !Set.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
             || !RarityCode.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
-            || !Artist.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase);
+            || !Artist.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
+            || !Power.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase)
+            || !Toughness.Equals(defaultFilter, StringComparison.OrdinalIgnoreCase);
     }
 }

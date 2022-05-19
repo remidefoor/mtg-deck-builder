@@ -16,7 +16,7 @@
 - post deck
   - validation
 
-- delete deck
+- ~~delete deck~~
 
 # Web API
 
@@ -28,9 +28,9 @@
 
 ## overview
 
-- [ ] start up
+- [x] start up
   - [x] first 150 cards
-    - [ ] caching
+    - [x] caching
 - [x] filtering
 
   - [x] set
@@ -48,11 +48,11 @@
 
 - [x] limit = 60
 
-- [ ] local storage
+- [x] local storage
 
 - [x] post deck
 
-- [ ] delete deck
+- [x] delete deck
 
 # GraphQL API
 
