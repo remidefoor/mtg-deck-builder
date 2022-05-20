@@ -37,7 +37,7 @@ public class DeckEndPoints : IEndpointDefinition
     private async Task<IResult> PostDeck(IDeckRepository deckRepository, IMapper mapper, DeckWriteDTO deckDTO)
     {
         return (await deckRepository.CreateDeckAsync(mapper.Map<Deck>(deckDTO)) is Deck createdDeck)
-            ? Results.Created($"https://localhost:7103{_urlPrefix}/Decks/{createdDeck.Id}", mapper.Map<DeckReadDetailDTO>(createdDeck)) // TODO refactor
+            ? Results.Created($"https://localhost:7103{_urlPrefix}/Decks/{createdDeck.Id}", mapper.Map<DeckReadDetailDTO>(createdDeck))
             : Results.BadRequest();
     }
 

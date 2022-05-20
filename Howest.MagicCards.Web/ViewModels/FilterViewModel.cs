@@ -2,8 +2,8 @@
 
 public class FilterViewModel
 {
-    const string defaultFilter = "All"; // TODO move to appsettings
-    const string defaultSort = "None"; // TODO move to appsettings
+    const string defaultFilter = "All";
+    const string defaultSort = "None";
 
     public string Name { get; set; } = defaultFilter;
     public string Text { get; set; } = defaultFilter;

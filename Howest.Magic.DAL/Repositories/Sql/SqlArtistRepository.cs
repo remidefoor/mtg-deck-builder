@@ -11,13 +11,13 @@ public class SqlArtistRepository : IArtistRepository
 
     public IQueryable<Artist> ReadArtists()
     {
-        return _db.Artists // TODO include set, rarity & artist?
+        return _db.Artists
             .Select(artist => artist);
     }
 
     public Artist? ReadArtist(long id)
     {
         return _db.Artists
-            .SingleOrDefault(artist => artist.Id == id); // TODO refactor to Single
+            .SingleOrDefault(artist => artist.Id == id);
     }
 }
