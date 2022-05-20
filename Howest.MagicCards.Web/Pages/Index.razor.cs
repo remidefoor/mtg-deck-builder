@@ -6,8 +6,8 @@ namespace Howest.MagicCards.Web.Pages;
 
 public partial class Index
 {
-    private string _defaultFilter = Configuration.GetAppSetting("QueryParamDefaults:Filter");
-    private string _defaultSort = Configuration.GetAppSetting("QueryParamDefaults:Sort");
+    private readonly string _defaultFilter = Configuration.GetAppSetting("QueryParamDefaults:Filter");
+    private readonly string _defaultSort = Configuration.GetAppSetting("QueryParamDefaults:Sort");
     private FilterViewModel _filter;
 
     private readonly JsonSerializerOptions _jsonOptions;

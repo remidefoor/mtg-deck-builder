@@ -2,8 +2,14 @@
 
 public class RootQuery : ObjectGraphType
 {
+    private readonly string defaultFilter;
+    private readonly int defaultEntityAmount;
+
     public RootQuery(ICardRepository cardRepository, IArtistRepository artistRepository)
     {
+        defaultFilter = Configuration.GetAppSetting("defaultFilter");
+        defaultEntityAmount = int.Parse(Configuration.GetAppSetting("defaultEntityAmount"));
+
         Name = "Query";
         Description = "Query the Magic The Gathering collection";
 
@@ -13,8 +19,8 @@ public class RootQuery : ObjectGraphType
             Description = "Get cards",
             arguments: new QueryArguments()
             {
-                new QueryArgument<StringGraphType> { Name = "Power", DefaultValue = "All" },
-                new QueryArgument<StringGraphType> { Name = "Toughness", DefaultValue = "All" }
+                new QueryArgument<StringGraphType> { Name = "Power", DefaultValue = defaultFilter },
+                new QueryArgument<StringGraphType> { Name = "Toughness", DefaultValue = defaultFilter }
             },
             resolve: context =>
             {
@@ -36,12 +42,12 @@ public class RootQuery : ObjectGraphType
             Description = "Get artists",
             arguments: new QueryArguments
             {
-                new QueryArgument<IntGraphType> { Name = "limit", DefaultValue = 150 }
+                new QueryArgument<IntGraphType> { Name = "limit", DefaultValue = defaultEntityAmount }
             },
             resolve: context =>
             {
                 int limit = context.GetArgument<int>("limit");
-                if (limit <= 0 || limit > 150) limit = 150;
+                if (limit <= 0 || limit > defaultEntityAmount) limit = defaultEntityAmount;
 
                 return artistRepository.ReadArtists()
                     .Take(limit)
