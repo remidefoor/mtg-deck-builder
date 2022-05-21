@@ -5,10 +5,12 @@ namespace Howest.MagicCards.MinimalAPI.EndPointDefinitions;
 public class DeckCardEndPoints : IEndpointDefinition
 {
     private readonly string _urlPrefix;
+    private readonly int _deckSize;
 
     public DeckCardEndPoints()
     {
         _urlPrefix = Configuration.GetAppSetting("UrlPrefix");
+        _deckSize = int.Parse(Configuration.GetAppSetting("DeckSize"));
     }
 
     public void DefineEndpoints(WebApplication app)
@@ -39,9 +41,20 @@ public class DeckCardEndPoints : IEndpointDefinition
     {
         DeckCard deckCard = mapper.Map<DeckCard>(deckCardDTO);
         deckCard.DeckId = deckId;
-        return (await deckCardRepository.CreateDeckCardAsync(deckCard) is DeckCard createdDeckCard)
+        if (deckCardFits(deckCardRepository, deckCard))
+        {
+            return (await deckCardRepository.CreateDeckCardAsync(deckCard) is DeckCard createdDeckCard)
             ? Results.Created($"https://localhost:7103{_urlPrefix}/Decks/{deckId}/DeckCards",
                 mapper.Map<DeckCardReadDTO>(createdDeckCard))
             : Results.BadRequest();
+        }
+        return Results.BadRequest();
+    }
+
+    private bool deckCardFits(IDeckCardRepository deckCardRepository, DeckCard deckCard)
+    {
+        int deckCardAmount = deckCardRepository.ReadDeckCards(deckCard.DeckId)
+            .Sum(deckCard => deckCard.Amount);
+        return deckCardAmount + deckCard.Amount <= _deckSize;
     }
 }
