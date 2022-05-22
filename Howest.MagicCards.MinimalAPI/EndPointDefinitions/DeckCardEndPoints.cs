@@ -43,10 +43,18 @@ public class DeckCardEndPoints : IEndpointDefinition
         deckCard.DeckId = deckId;
         if (deckCardFits(deckCardRepository, deckCard))
         {
-            return (await deckCardRepository.CreateDeckCardAsync(deckCard) is DeckCard createdDeckCard)
-            ? Results.Created($"https://localhost:7103{_urlPrefix}/Decks/{deckId}/DeckCards",
-                mapper.Map<DeckCardReadDTO>(createdDeckCard))
-            : Results.BadRequest();
+            try
+            {
+                DeckCard? createdDeckCard = await deckCardRepository.CreateDeckCardAsync(deckCard);
+                if (createdDeckCard is DeckCard)
+                {
+                    return Results.Created($"https://localhost:7103{_urlPrefix}/Decks/{deckId}/DeckCards",
+                        mapper.Map<DeckCardReadDTO>(createdDeckCard));
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
         return Results.BadRequest();
     }
