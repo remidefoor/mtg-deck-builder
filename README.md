@@ -79,8 +79,5 @@
 
 # video
 
-- [ ] Web Application
-- [ ] Swagger UI
-  - [ ] Minimal API
-  - [ ] Web API
-- [ ] GraphQL API
+- [x] Web Application
+- [x] GraphQL API
